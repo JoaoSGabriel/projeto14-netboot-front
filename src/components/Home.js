@@ -1,14 +1,32 @@
 import styled from "styled-components";
+import axios from "axios";
 import { GrAppsRounded, GrFormSearch } from 'react-icons/gr'
 import { RiHomeSmileFill, RiHeartLine, RiDraftLine, RiShoppingCartFill } from 'react-icons/ri';
 import { IoPersonOutline, IoHeartOutline } from 'react-icons/io5';
+import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "./contexts/UserContext";
 
 export default function Home() {
-    //{ name, price, brand, sizes, description, URLimage }
-    const produtos = [
-        {name: 'Nike Air Max 20', price:'R$ 290,00', brand:'', sizes: [40, 41, 42, 43], description:'', URLimage:'https://imgcentauro-a.akamaihd.net/230x230/9714725G.jpg'}, 
-        {name: 'Nike Air Max 20', price:'R$ 290,00', brand:'', sizes: [40, 41, 42, 43], description:'', URLimage:'https://60398.cdn.simplo7.net/static/60398/sku/masculino-tenis-qix-80-s-1617126891949.jpg'}, {name: 'Nike Air Max 20', price:'R$ 290,00', brand:'', sizes: [40, 41, 42, 43], description:'', URLimage:'https://images-americanas.b2w.io/produtos/4684478303/imagens/tenis-para-academia-masculino-bf-shoes/4684478557_1_large.jpg'} , {name: 'Nike Air Max 20', price:'R$ 290,00', brand:'', sizes: [40, 41, 42, 43], description:'', URLimage:'https://underarmourbr.vteximg.com.br/arquivos/ids/161224-1000-1000/3022587-104-44-1.jpg?v=637508668366400000'}, {name: 'Nike Air Max 20', price:'R$ 290,00', brand:'', sizes: [40, 41, 42, 43], description:'', URLimage:'https://fieroshop.vteximg.com.br/arquivos/ids/172882-500-500/tenis-knit-masculino-cinza-maleavel-.jpg?v=637835541402230000'}, {name: 'Nike Air Max 20', price:'R$ 290,00', brand:'', sizes: [40, 41, 42, 43], description:'', URLimage:'https://static.dafiti.com.br/p/Evoltenn-T%C3%AAnis-Evoltenn-Easy-Style-Preto-Amarelo-1382-3414617-1-zoom.jpg'}
-    ];
+    const navigate = useNavigate();
+    const { user_Token } = useContext(UserContext);
+
+    const [server_Products, setServer_Products] = useState([]);
+
+    useEffect(() => {
+        const promisse = axios.get('http://localhost:5000/products', {
+            headers: {
+                Authorization: `Bearer ${user_Token}`
+            }
+        });
+
+        promisse.then((res) => {
+            setServer_Products(res.data);
+        }).catch(() => {
+            navigate('/');
+        });
+
+    }, [user_Token, navigate]);
 
     return(
         <Screen>
@@ -22,7 +40,7 @@ export default function Home() {
                 <h1>sort by</h1>
             </Textbar>
             <Listproducts>
-                {produtos.map((value, index) =>
+                {server_Products.map((value, index) =>
                     <Products>
                         <span><IoHeartOutline/></span>
                         <img src={value.URLimage} alt='tenis'/>
@@ -113,6 +131,7 @@ const Products = styled.div`
         margin: 10px 0 0 0;
     }
     h1 {
+        font-family: 'Courier Prime', monospace;
         font-size: 20px;
         color: #8383BC;
         margin: 10px 0 0 0;
