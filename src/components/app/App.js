@@ -4,6 +4,7 @@ import UserContext from '../contexts/UserContext'
 import GlobalStyle from './GlobalStyle';
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
+import Home from "../Home";
 
 export default function App() {
 
@@ -16,6 +17,7 @@ export default function App() {
       <Routes>
         <Route path='/' element={<SignIn/>} />
         <Route path='/Sign-up' element={<SignUp/>} />
+        <Route path='/Home' element={<Home/>} />
       </Routes>
     </BrowserRouter>
    </UserContext.Provider>
