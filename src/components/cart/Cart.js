@@ -6,9 +6,15 @@ export default function Cart() {
   return (
     <Wrapper>
       <Header>
-        <IoArrowBackSharp />
-        <Title>My Cart</Title>
-        <FaTrash />
+        <li>
+          <IoArrowBackSharp />
+        </li>
+        <li>
+          <Title>My Cart</Title>
+        </li>
+        <li>
+          <FaTrash />
+        </li>
       </Header>
     </Wrapper>
   );
@@ -22,12 +28,23 @@ const Wrapper = styled.div`
   font-size: 20px;
 `;
 
-const Header = styled.div`
+const Header = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   padding: 15px;
+  background-color: white;
+
+  li:nth-child(1) {
+    font-size: 23px;
+    transform: translateY(1.5px);
+  }
+  li:nth-child(3) {
+    font-size: 18px;
+    transform: translateY(1.5px);
+    color: gray;
+  }
 `;
 
 const Title = styled.h2`
