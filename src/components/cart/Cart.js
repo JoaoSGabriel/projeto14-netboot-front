@@ -1,16 +1,28 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, useContext } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
+
 import Product from "./Product";
 import Footer from "./CartFooter";
 
+import UserContext from "../contexts/UserContext";
+import { getCartProduct } from "../../services/APIs";
+
 export default function Cart() {
   const [balance, setBalance] = useState(0);
+  const [cart, setCart] = useState(null);
 
   if (Math.sign(balance) === -1) {
     setBalance(balance * -1);
   }
+
+  const { user_Token } = useContext(UserContext);
+  console.log(user_Token);
+  useEffect(() => {
+    // getCartProduct();
+  }, []);
 
   const data = [
     {

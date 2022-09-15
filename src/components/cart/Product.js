@@ -7,10 +7,12 @@ export default function Product({
   id,
   name,
   price,
+  brand,
   description,
   size,
   balance,
   setBalance,
+  URLimage,
 }) {
   const [increment, setIncrement] = useState(1);
 
