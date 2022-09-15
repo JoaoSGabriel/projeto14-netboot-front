@@ -7,6 +7,24 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "./contexts/UserContext";
 
+function Product (props) {
+    const navigate = useNavigate();
+    const { name, price, URL, id } = props
+
+    function seeProduct() {
+        navigate(`/Product/${id}`)
+    }
+
+    return(
+        <Products onClick={seeProduct}>
+            <span><IoHeartOutline/></span>
+            <img src={URL} alt='tenis'/>
+            <p>{name}</p>
+            <h1>{price}</h1>
+        </Products>
+    );
+}
+
 export default function Home() {
     const navigate = useNavigate();
     const { user_Token } = useContext(UserContext);
@@ -40,14 +58,7 @@ export default function Home() {
                 <h1>sort by</h1>
             </Textbar>
             <Listproducts>
-                {server_Products.map((value, index) =>
-                    <Products>
-                        <span><IoHeartOutline/></span>
-                        <img src={value.URLimage} alt='tenis'/>
-                        <p>{value.name}</p>
-                        <h1>{value.price}</h1>
-                    </Products>
-                )}
+                {server_Products.map((value, index) => <Product name={value.name} price={value.price} URL={value.URLimage} id={value._id} />)}
             </Listproducts>
             <Footer>
                 <RiHomeSmileFill/>
