@@ -117,6 +117,13 @@ const Header = styled.ul`
     transform: translateY(1.8px);
     color: #4cc9f0;
   }
+  li:nth-child(2) {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #4cc9f0;
+  }
+
   li:nth-child(3) {
     font-size: 18px;
     transform: translateY(1.2px);
