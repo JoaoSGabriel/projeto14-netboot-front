@@ -21,6 +21,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	box-sizing: border-box;
 }
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
@@ -49,6 +50,12 @@ body {
 	justify-content: center;
 	align-items: center;
 	background-color: #E5E5E5;
-}`;
+}
+
+button{
+	border:none
+}
+
+`;
 
 export default GlobalStyle;
