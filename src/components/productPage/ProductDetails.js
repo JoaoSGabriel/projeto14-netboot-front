@@ -4,14 +4,14 @@ import styled from "styled-components";
 function SizeModel (props) {
     const { scale } = props;
 
-    const [isChoose, setIsChoose] = useState(true);
+    const [isChoose, setIsChoose] = useState(false);
 
     return(
         <>
         {isChoose ? (
-            <Wrappler onClick={() => setIsChoose(false)}>{scale}</Wrappler>
+            <ChooseWrappler onClick={() => setIsChoose(false)}>{scale}</ChooseWrappler>
         ) : (
-            <ChooseWrappler onClick={() => setIsChoose(true)}>{scale}</ChooseWrappler>
+            <Wrappler onClick={() => setIsChoose(true)}>{scale}</Wrappler>
         )}
         </>
     );
