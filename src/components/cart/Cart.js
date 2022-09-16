@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
+import { BsCartFill } from "react-icons/bs";
 
 import Product from "./Product";
 import Footer from "./CartFooter";
@@ -12,54 +13,40 @@ import { getCartProduct } from "../../services/APIs";
 
 export default function Cart() {
   const [balance, setBalance] = useState(0);
-  const [cart, setCart] = useState(null);
+  const [cart, setCart] = useState([]);
 
   if (Math.sign(balance) === -1) {
     setBalance(balance * -1);
   }
 
-  const { user_Token } = useContext(UserContext);
-  console.log(user_Token);
-  useEffect(() => {
-    // getCartProduct();
-  }, []);
+  // const { user_Token } = useContext(UserContext);
+  // console.log(user_Token);
 
-  const data = [
-    {
-      id: 1,
-      name: "Nike 1.0",
-      price: 199.9,
-      size: 40,
-      description: "Um tênis massa pra crl",
-    },
-    {
-      id: 2,
-      name: "Nike 2.0",
-      price: 299.9,
-      size: 41,
-      description: "Um tênis massa da peste",
-    },
-    {
-      id: 3,
-      name: "Nike 3.0",
-      price: 399.9,
-      size: 42,
-      description: "Um tênis massa pakas",
-    },
-    {
-      id: 4,
-      name: "Nike 4.0",
-      price: 499.9,
-      size: 43,
-      description: "Um tênis massa demais",
-    },
-  ];
+  // const config = {
+  //   headers: {
+  //     Authorization: `Bearer 47ddc288-e4a2-4a64-a181-c034533c93cb`,
+  //   },
+  // };
 
-  useEffect(() => {
-    let somatorio = 0;
-    data.forEach((item) => (somatorio += item.price));
-    setBalance(somatorio);
-  }, []);
+  // useEffect(() => {
+  //   getCartProduct(config)
+  //     .then((response) => {
+  //       setCart(response.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e.message);
+  //     });
+  // }, []);
+
+  // useEffect(() => {
+  //   let somatorio = 0;
+  //   cart.forEach((item) => (somatorio += item.price));
+  //   setBalance(somatorio);
+  // }, []);
+
+  // if (cart === null) {
+  //   return <></>;
+  // }
 
   return (
     <Wrapper>
@@ -69,23 +56,25 @@ export default function Cart() {
         </li>
         <li>
           <Title>Carrinho</Title>
+          <BsCartFill />
         </li>
         <li>
           <FaTrash />
         </li>
       </Header>
 
-      {data.length === 0 ? (
+      {cart.length === 0 ? (
         <DataEmpty>O carrinho está vazio...</DataEmpty>
       ) : (
         <BoxProducts>
-          {data.map((item) => (
+          {cart.map((item) => (
             <Product
-              id={item.id}
+              id={item._id}
               name={item.name}
               price={item.price}
               description={item.description}
-              size={item.size}
+              size={item.size[0]}
+              brand={item.brand}
               balance={balance}
               setBalance={setBalance}
             />
@@ -139,6 +128,7 @@ const Title = styled.h2`
   font-size: 30px;
   color: #4cc9f0;
   font-weight: 700;
+  font-family: "Anton";
 `;
 
 const BoxProducts = styled.div`
