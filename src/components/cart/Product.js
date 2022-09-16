@@ -3,17 +3,18 @@ import tenis from "../../assets/tenisNike.jpg";
 import { useState } from "react";
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
-export default function Product({
-  id,
-  name,
-  price,
-  brand,
-  description,
-  size,
-  balance,
-  setBalance,
-  URLimage,
-}) {
+export default function Product(props) {
+  const {
+    id,
+    name,
+    price,
+    brand,
+    description,
+    size,
+    URLimage,
+    balance,
+    setBalance,
+  } = props;
   const [increment, setIncrement] = useState(1);
 
   function add() {

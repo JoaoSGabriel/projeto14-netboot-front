@@ -56,6 +56,7 @@ button{
 	border:none
 }
 
+
 `;
 
 export default GlobalStyle;
