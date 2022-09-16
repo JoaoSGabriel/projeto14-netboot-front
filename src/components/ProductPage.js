@@ -71,10 +71,7 @@ export default function ProductPage () {
             </Details>
             <Footer>
                 <p>{server_Response.price}</p>
-                <button>
-                    <span>Adicionar ao</span>   
-                    <RiShoppingCartFill/>
-                </button>
+                <h2>Adicionar ao <RiShoppingCartFill/></h2>
             </Footer>
         </Screen>
     );
@@ -92,6 +89,7 @@ const Navbar = styled.div`
     justify-content: space-between;
     align-items: center;
     font-size: 25px;
+    font-family: 'PT Sans', sans-serif;
     p {
         color: #4CC9F0;
     }
@@ -108,6 +106,7 @@ const Photo = styled.div`
     align-items: center;
     img {
         width: 260px;
+        height: 260px;
     }
 `;
 
@@ -117,9 +116,11 @@ const Details = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'PT Sans', sans-serif;
     p {
         width: 90%;
         font-size: 30px;
+        font-weight: bold;
         margin: 10px 0 15px 0;
         color: #525284;
     }
@@ -176,6 +177,7 @@ const Wrappler = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'PT Sans', sans-serif;
 `;
 
 const ChooseWrappler = styled.div`
@@ -199,17 +201,20 @@ const Footer = styled.div`
     p {
         font-size: 30px;
         font-weight: bold;
+        font-family: 'PT Sans', sans-serif;
     }
-    button {
+    h2 {
         width: 140px;
         height: 40px;
-        border: none;
         border-radius: 20px;
         font-size: 15px;
+        font-family: 'PT Sans', sans-serif;
         color: #4D4D9A;
         background-color: #F7F7F2;
-    }
-    span {
-        margin: 0 7px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 5%;
+        box-sizing: border-box;
     }
 `;

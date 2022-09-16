@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import axios from "axios";
 import { GrAppsRounded, GrFormSearch } from 'react-icons/gr'
-import { RiHomeSmileFill, RiHeartLine, RiDraftLine, RiShoppingCartFill } from 'react-icons/ri';
-import { IoPersonOutline, IoHeartOutline } from 'react-icons/io5';
+import { RiHomeSmileFill, RiHeartFill, RiDraftFill, RiShoppingCartFill, RiUserFill } from 'react-icons/ri';
+import { IoHeartOutline } from 'react-icons/io5';
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "./contexts/UserContext";
@@ -58,14 +58,14 @@ export default function Home() {
                 <h1>sort by</h1>
             </Textbar>
             <Listproducts>
-                {server_Products.map((value, index) => <Product name={value.name} price={value.price} URL={value.URLimage} id={value._id} />)}
+                {server_Products.map(value => <Product name={value.name} price={value.price} URL={value.URLimage} id={value._id} />)}
             </Listproducts>
             <Footer>
-                <RiHomeSmileFill/>
-                <RiHeartLine/>
-                <RiShoppingCartFill/>
-                <RiDraftLine/>
-                <IoPersonOutline/>
+                <strong><RiHomeSmileFill/></strong>
+                <RiHeartFill/>
+                <strong><RiShoppingCartFill/></strong>
+                <RiDraftFill/>
+                <RiUserFill/>
             </Footer>
         </Screen>
     );
@@ -83,6 +83,7 @@ const Navbar = styled.div`
     justify-content: space-between;
     align-items: center;
     font-size: 25px;
+    font-family: 'PT Sans', sans-serif;
     p {
         color: #4CC9F0;
     }
@@ -96,6 +97,7 @@ const Textbar = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-family: 'PT Sans', sans-serif;
     p {
         font-size: 20px;
         font-weight: bold;
@@ -123,13 +125,15 @@ const Products = styled.div`
     background-color: #FFFFFF;
     margin: 0 0 15px 0;
     height: 200px;
-    width: 45%;
+    width: 152px;
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-family: 'PT Sans', sans-serif;
     img {
         width: 100px;
+        height: 100px;
     }
     span {
         padding: 10px;
@@ -140,9 +144,10 @@ const Products = styled.div`
         font-size: 15px;
         color: #8B8DA0;
         margin: 10px 0 0 0;
+        text-align: center;
     }
     h1 {
-        font-family: 'Courier Prime', monospace;
+        font-weight: bold;
         font-size: 20px;
         color: #8383BC;
         margin: 10px 0 0 0;
@@ -156,5 +161,9 @@ const Footer = styled.div`
     align-items: center;
     padding: 0 5%;
     font-size: 20px;
+    color: #B8B8C7;
     background-color: #FFFFFF;
+    strong {
+        color: #3E44AA;
+    }
 `;
