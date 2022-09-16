@@ -46,6 +46,10 @@ export default function Home() {
 
     }, [user_Token, navigate]);
 
+    function goCart() {
+        navigate('/Cart');
+    }
+
     return(
         <Screen>
             <Navbar>
@@ -63,7 +67,7 @@ export default function Home() {
             <Footer>
                 <strong><RiHomeSmileFill/></strong>
                 <RiHeartFill/>
-                <strong><RiShoppingCartFill/></strong>
+                <strong><RiShoppingCartFill onClick={goCart}/></strong>
                 <RiDraftFill/>
                 <RiUserFill/>
             </Footer>
