@@ -10,7 +10,7 @@ import Product from "./Product";
 import Footer from "./CartFooter";
 
 import UserContext from "../contexts/UserContext";
-import { getCartProducts } from "../../services/APIs";
+import { getCartProducts, cleanCart } from "../../services/APIs";
 import axios from "axios";
 
 export default function Cart() {
@@ -45,10 +45,27 @@ export default function Cart() {
       cart.forEach((item) => (somatorio += Number(item.price)));
       setBalance(somatorio);
     }
-  }, [cart]);
+  }, []);
 
   function backHome() {
     navigate("/Home");
+  }
+
+  function cleanCart() {
+    alert("CLEAN CART");
+    cleanCart(config)
+      .then(() => {
+        // getCartProducts(config)
+        //   .then((res) => {
+        //     setCart(res.data);
+        //   })
+        //   .catch((error) => {
+        //     console.log(error.message);
+        //   });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   if (cart === null) {
@@ -66,7 +83,7 @@ export default function Cart() {
           <BsFillCartFill />
         </li>
         <li>
-          <FaTrash />
+          <FaTrash onClick={cleanCart} />
         </li>
       </Header>
 
