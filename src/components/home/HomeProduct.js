@@ -1,18 +1,33 @@
 import { useNavigate } from "react-router-dom";
-import { IoHeartOutline } from "react-icons/io5";
+import { IoHeartOutline, IoHeartCircleSharp } from "react-icons/io5";
 import styled from "styled-components";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContext";
 
 export default function HomeProduct (props) {
     const navigate = useNavigate();
-    const { name, price, URL, id } = props;
+    const { name, price, URL, id, favorite } = props;
+    const {user_ID} = useContext(UserContext);
+
+    const [isFavorit, setIsFavorit] = useState(false);
 
     function seeProduct() {
         navigate(`/Product/${id}`);
     }
+    
+    useEffect(() => {
+      favorite.forEach(value => {
+        if (value === user_ID) {
+          setIsFavorit(true);
+        }
+      });
+    }, [user_ID, favorite])
 
     return(
         <Products onClick={seeProduct}>
-            <span><IoHeartOutline /></span>
+            {isFavorit ? (
+            <span><IoHeartCircleSharp style={{color: 'red'}}/></span>) : (
+            <span><IoHeartOutline/></span>)}
             <img src={URL} alt="tenis" />
             <p>{name}</p>
             <h1>{price}</h1>

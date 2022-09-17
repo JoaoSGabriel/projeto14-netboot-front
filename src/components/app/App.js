@@ -10,9 +10,10 @@ import ProductPage from "../productPage/ProductPage";
 
 export default function App() {
   const [user_Token, setUser_Token] = useState("");
+  const [user_ID, setUser_ID] = useState('');
 
   return (
-    <UserContext.Provider value={{ user_Token, setUser_Token }}>
+    <UserContext.Provider value={{ user_Token, setUser_Token, user_ID, setUser_ID }}>
       <BrowserRouter>
         <GlobalStyle />
         <Routes>

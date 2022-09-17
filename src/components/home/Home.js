@@ -49,6 +49,7 @@ export default function Home() {
             price={value.price}
             URL={value.URLimage}
             id={value._id}
+            favorite={value.favorite}
           />
         ))}
       </Listproducts>
