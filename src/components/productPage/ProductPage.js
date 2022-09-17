@@ -32,13 +32,22 @@ export default function ProductPage () {
     function back () {
         navigate('/Home');
     }
+    
+    function turnFavorite () {
+        const promisse = axios.put(`http://localhost:5000/products/favorite/${server_Response._id}`, {}, {
+          headers: {
+            Authorization: `Bearer ${user_Token}`
+          }
+        });
+        promisse.then().catch();
+      }
 
     return(
         <Screen>
             <Navbar>
                 <BiArrowBack onClick={back}/>
                 <p><strong>Net</strong>Boot</p>
-                <AiOutlineHeart/>
+                <AiOutlineHeart onClick={turnFavorite}/>
             </Navbar>
             <Photo><img src={server_Response.URLimage} alt="product big"/></Photo>
             <PorductDetails name={server_Response.name} description={server_Response.description} productSize={productSize}/>
