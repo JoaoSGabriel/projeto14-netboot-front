@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
-import { BsFillCartFill } from "react-icons/bs";
+import { BsCartFill } from "react-icons/bs";
 import { ThreeDots } from "react-loader-spinner";
 
 import Product from "./Product";
@@ -97,7 +97,7 @@ export default function Cart() {
         </li>
         <li>
           <Title>Carrinho</Title>
-          <BsFillCartFill />
+          <BsCartFill />
         </li>
         <li>
           <FaTrash onClick={clean} />
@@ -168,7 +168,6 @@ const Header = styled.ul`
     transform: translateY(1.8px);
     color: #4cc9f0;
   }
-
   li:nth-child(2) {
     display: flex;
     align-items: center;
@@ -187,6 +186,7 @@ const Title = styled.h2`
   font-size: 30px;
   color: #4cc9f0;
   font-weight: 700;
+  font-family: "Anton";
 `;
 
 const BoxProducts = styled.div`

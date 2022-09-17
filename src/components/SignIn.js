@@ -7,7 +7,7 @@ import UserContext from "./contexts/UserContext";
 
 export default function SignIn() {
     const navigate = useNavigate();
-    const { setUser_Token } = useContext(UserContext);
+    const { setUser_Token, setUser_ID } = useContext(UserContext);
 
     const [able, setAble] = useState(false);
     const [account_Email, setAccount_Email] = useState([]);
@@ -28,6 +28,7 @@ export default function SignIn() {
             setAccount_Email('');
             setAccount_Password('');
             setUser_Token(res.data.token);
+            setUser_ID(res.data.userID);
             navigate('/Home');
         }).catch(() => {
             setAccount_Email('');

@@ -7,6 +7,7 @@ import { removeCartProduct, getCartProducts } from "../../services/APIs";
 
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
+<<<<<<< HEAD
 export default function Product({
   id,
   name,
@@ -19,6 +20,20 @@ export default function Product({
   setBalance,
   setCart,
 }) {
+=======
+export default function Product(props) {
+  const {
+    id,
+    name,
+    price,
+    brand,
+    description,
+    size,
+    URLimage,
+    balance,
+    setBalance,
+  } = props;
+>>>>>>> main
   const [increment, setIncrement] = useState(1);
   if (increment === 0) {
     setIncrement(increment + 1);

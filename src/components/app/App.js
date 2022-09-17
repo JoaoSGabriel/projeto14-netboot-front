@@ -4,16 +4,21 @@ import UserContext from "../contexts/UserContext";
 import GlobalStyle from "./GlobalStyle";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
-import Home from "../Home";
+import Home from "../home/Home";
 import Cart from "../cart/Cart";
+<<<<<<< HEAD
 import Checkout from "../checkout/Checkout";
 import ProductPage from "../ProductPage";
+=======
+import ProductPage from "../productPage/ProductPage";
+>>>>>>> main
 
 export default function App() {
   const [user_Token, setUser_Token] = useState("");
+  const [user_ID, setUser_ID] = useState('');
 
   return (
-    <UserContext.Provider value={{ user_Token, setUser_Token }}>
+    <UserContext.Provider value={{ user_Token, setUser_Token, user_ID, setUser_ID }}>
       <BrowserRouter>
         <GlobalStyle />
         <Routes>
