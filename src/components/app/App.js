@@ -6,7 +6,12 @@ import SignIn from "../SignIn";
 import SignUp from "../SignUp";
 import Home from "../home/Home";
 import Cart from "../cart/Cart";
+<<<<<<< HEAD
+import Checkout from "../checkout/Checkout";
+import ProductPage from "../ProductPage";
+=======
 import ProductPage from "../productPage/ProductPage";
+>>>>>>> main
 
 export default function App() {
   const [user_Token, setUser_Token] = useState("");
@@ -21,6 +26,7 @@ export default function App() {
           <Route path="/Sign-up" element={<SignUp />} />
           <Route path="/Home" element={<Home />} />
           <Route path="/Cart" element={<Cart />} />
+          <Route path="/Checkout" element={<Checkout />} />
           <Route path="/Product/:id" element={<ProductPage />} />
         </Routes>
       </BrowserRouter>

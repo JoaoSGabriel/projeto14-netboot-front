@@ -1,65 +1,106 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect, useContext } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
 import { BsCartFill } from "react-icons/bs";
+import { ThreeDots } from "react-loader-spinner";
 
 import Product from "./Product";
 import Footer from "./CartFooter";
 
 import UserContext from "../contexts/UserContext";
-import { getCartProduct } from "../../services/APIs";
+import { getCartProducts, cleanCart } from "../../services/APIs";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(null);
+  const { user_Token } = useContext(UserContext);
 
-  if (Math.sign(balance) === -1) {
-    setBalance(balance * -1);
+  function defineBalance(cart, balance) {
+    if (cart !== null && cart.length !== 0 && balance === 0) {
+      let somatorio = 0;
+      cart.forEach((item) => (somatorio += Number(item.price)));
+      setBalance(somatorio);
+    }
+  }
+  function adjustSignOfBalance() {
+    if (Math.sign(balance) === -1) {
+      setBalance(balance * -1);
+    }
   }
 
-  // const { user_Token } = useContext(UserContext);
-  // console.log(user_Token);
+  defineBalance(cart, balance);
+  adjustSignOfBalance();
 
-  // const config = {
-  //   headers: {
-  //     Authorization: `Bearer 47ddc288-e4a2-4a64-a181-c034533c93cb`,
-  //   },
-  // };
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user_Token}`,
+    },
+  };
 
-  // useEffect(() => {
-  //   getCartProduct(config)
-  //     .then((response) => {
-  //       setCart(response.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e.message);
-  //     });
-  // }, []);
+  useEffect(() => {
+    getCartProducts(config)
+      .then((res) => {
+        setCart([...res.data]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  // useEffect(() => {
-  //   let somatorio = 0;
-  //   cart.forEach((item) => (somatorio += item.price));
-  //   setBalance(somatorio);
-  // }, []);
+  function backHome() {
+    navigate("/Home");
+  }
 
-  // if (cart === null) {
-  //   return <></>;
-  // }
+  function clean() {
+    cleanCart(config)
+      .then(() => {
+        getCartProducts(config)
+          .then((res) => {
+            setCart([...res.data]);
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
+  if (cart === null) {
+    return (
+      <WrapperDots>
+        <li>
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="black"
+            ariaLabel="three-dots-loading"
+            wrapperStyle
+            wrapperClass
+          />
+        </li>
+      </WrapperDots>
+    );
+  }
 
   return (
     <Wrapper>
       <Header>
         <li>
-          <IoArrowBackSharp />
+          <IoArrowBackSharp onClick={backHome} />
         </li>
         <li>
           <Title>Carrinho</Title>
           <BsCartFill />
         </li>
         <li>
-          <FaTrash />
+          <FaTrash onClick={clean} />
         </li>
       </Header>
 
@@ -69,20 +110,23 @@ export default function Cart() {
         <BoxProducts>
           {cart.map((item) => (
             <Product
+              key={item._id}
               id={item._id}
               name={item.name}
               price={item.price}
-              description={item.description}
-              size={item.size[0]}
               brand={item.brand}
+              description={item.description}
+              size={item.size}
+              URLimage={item.URLimage}
               balance={balance}
               setBalance={setBalance}
+              setCart={setCart}
             />
           ))}
         </BoxProducts>
       )}
 
-      <Footer balance={balance} />
+      <Footer balance={cart.length !== 0 ? balance : 0} />
     </Wrapper>
   );
 }
@@ -96,6 +140,13 @@ const Wrapper = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+`;
+
+const WrapperDots = styled.ul`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -126,7 +177,7 @@ const Header = styled.ul`
 
   li:nth-child(3) {
     font-size: 18px;
-    transform: translateY(1.2px);
+    transform: translateY(2.9px);
     color: #4cc9f0;
   }
 `;

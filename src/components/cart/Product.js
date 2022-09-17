@@ -1,8 +1,26 @@
 import styled from "styled-components";
-import tenis from "../../assets/tenisNike.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
+
+import { removeCartProduct, getCartProducts } from "../../services/APIs";
+
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
+<<<<<<< HEAD
+export default function Product({
+  id,
+  name,
+  price,
+  brand,
+  description,
+  size,
+  URLimage,
+  balance,
+  setBalance,
+  setCart,
+}) {
+=======
 export default function Product(props) {
   const {
     id,
@@ -15,7 +33,19 @@ export default function Product(props) {
     balance,
     setBalance,
   } = props;
+>>>>>>> main
   const [increment, setIncrement] = useState(1);
+  if (increment === 0) {
+    setIncrement(increment + 1);
+  }
+
+  const { user_Token } = useContext(UserContext);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${"8aefebb4-de1f-43ec-92c9-e298be77defd"}`,
+    },
+  };
 
   function add() {
     if (increment >= 0) {
@@ -25,18 +55,38 @@ export default function Product(props) {
   }
 
   function sub() {
-    if (increment !== 0) {
+    if (increment > 1) {
       setIncrement(increment - 1);
       setBalance(balance - price);
+    } else if (increment === 1) {
+      setBalance(balance - price);
+
+      removeCartProduct(id, config)
+        .then((res) => {
+          getCartProducts(config)
+            .then((res) => {
+              setCart([...res.data]);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
   }
+
   return (
     <Wrapper>
       <section>
-        <img src={tenis} alt="tênis" />
+        <img src={URLimage} alt="tênis" />
         <BoxTitle>
           <Title>{name}</Title>
-          <Price>R$ {price.toFixed(2)}</Price>
+          <section>
+            <Price>R$ {price.toFixed(2)}</Price>
+            <Size>N° {size} </Size>
+          </section>
           <Description>{description}</Description>
         </BoxTitle>
       </section>
@@ -81,15 +131,26 @@ const BoxTitle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  section {
+    justify-content: space-between;
+  }
 `;
 
 const Title = styled.p`
   font-size: 18px;
+  font-weight: 700;
   color: black;
 `;
 
 const Price = styled.p`
   font-size: 18px;
+  font-weight: 700;
+  color: blue;
+`;
+
+const Size = styled.p`
+  font-size: 10px;
   color: blue;
 `;
 

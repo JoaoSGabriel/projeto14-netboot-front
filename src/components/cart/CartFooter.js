@@ -3,9 +3,10 @@ import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
 export default function CartFooter({ balance }) {
+  const navigate = useNavigate();
+
   function buy() {
-    alert("Compra finalizada!");
-    // REDIRECIONAR PARA A TELA DE COMPRA
+    navigate("/Checkout");
   }
   return (
     <Wrapper>
