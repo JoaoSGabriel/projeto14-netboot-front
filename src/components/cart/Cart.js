@@ -1,93 +1,91 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { useState, useEffect, useContext } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
+import { BsFillCartFill } from "react-icons/bs";
 
 import Product from "./Product";
 import Footer from "./CartFooter";
 
 import UserContext from "../contexts/UserContext";
-import { getCartProduct } from "../../services/APIs";
+import { getCartProducts } from "../../services/APIs";
+import axios from "axios";
 
 export default function Cart() {
+  const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
   const [cart, setCart] = useState(null);
+  const { user_Token } = useContext(UserContext);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user_Token}`,
+    },
+  };
 
   if (Math.sign(balance) === -1) {
     setBalance(balance * -1);
   }
 
-  const { user_Token } = useContext(UserContext);
-  console.log(user_Token);
   useEffect(() => {
-    // getCartProduct();
+    getCartProducts(config)
+      .then((res) => {
+        setCart(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
-
-  const data = [
-    {
-      id: 1,
-      name: "Nike 1.0",
-      price: 199.9,
-      size: 40,
-      description: "Um tênis massa pra crl",
-    },
-    {
-      id: 2,
-      name: "Nike 2.0",
-      price: 299.9,
-      size: 41,
-      description: "Um tênis massa da peste",
-    },
-    {
-      id: 3,
-      name: "Nike 3.0",
-      price: 399.9,
-      size: 42,
-      description: "Um tênis massa pakas",
-    },
-    {
-      id: 4,
-      name: "Nike 4.0",
-      price: 499.9,
-      size: 43,
-      description: "Um tênis massa demais",
-    },
-  ];
 
   useEffect(() => {
     let somatorio = 0;
-    data.forEach((item) => (somatorio += item.price));
-    setBalance(somatorio);
-  }, []);
+    if (cart !== null) {
+      cart.forEach((item) => (somatorio += Number(item.price)));
+      setBalance(somatorio);
+    }
+  }, [cart]);
+
+  function backHome() {
+    navigate("/Home");
+  }
+
+  if (cart === null) {
+    return <h1>Carregando...</h1>;
+  }
 
   return (
     <Wrapper>
       <Header>
         <li>
-          <IoArrowBackSharp />
+          <IoArrowBackSharp onClick={backHome} />
         </li>
         <li>
           <Title>Carrinho</Title>
+          <BsFillCartFill />
         </li>
         <li>
           <FaTrash />
         </li>
       </Header>
 
-      {data.length === 0 ? (
+      {cart.length === 0 ? (
         <DataEmpty>O carrinho está vazio...</DataEmpty>
       ) : (
         <BoxProducts>
-          {data.map((item) => (
+          {cart.map((item) => (
             <Product
-              id={item.id}
+              id={item._id}
               name={item.name}
               price={item.price}
+              brand={item.brand}
               description={item.description}
-              size={item.size}
+              size={item.sizes}
+              URLimage={item.URLimage}
               balance={balance}
               setBalance={setBalance}
+              setCart={setCart}
             />
           ))}
         </BoxProducts>
@@ -128,9 +126,17 @@ const Header = styled.ul`
     transform: translateY(1.8px);
     color: #4cc9f0;
   }
+
+  li:nth-child(2) {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #4cc9f0;
+  }
+
   li:nth-child(3) {
     font-size: 18px;
-    transform: translateY(1.2px);
+    transform: translateY(2.9px);
     color: #4cc9f0;
   }
 `;

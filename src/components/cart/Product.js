@@ -1,6 +1,10 @@
 import styled from "styled-components";
-import tenis from "../../assets/tenisNike.jpg";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
+
+import { removeCartProduct, getCartProducts } from "../../services/APIs";
+
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
 export default function Product({
@@ -10,11 +14,19 @@ export default function Product({
   brand,
   description,
   size,
+  URLimage,
   balance,
   setBalance,
-  URLimage,
+  setCart,
 }) {
   const [increment, setIncrement] = useState(1);
+  const { user_Token } = useContext(UserContext);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user_Token}`,
+    },
+  };
 
   function add() {
     if (increment >= 0) {
@@ -29,13 +41,33 @@ export default function Product({
       setBalance(balance - price);
     }
   }
+
+  if (increment === 0) {
+    removeCartProduct(id, config)
+      .then(() => {
+        getCartProducts(config)
+          .then((res) => {
+            setCart(res.data);
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }
+
   return (
     <Wrapper>
       <section>
-        <img src={tenis} alt="tênis" />
+        <img src={URLimage} alt="tênis" />
         <BoxTitle>
           <Title>{name}</Title>
-          <Price>R$ {price.toFixed(2)}</Price>
+          <section>
+            <Price>R$ {price.toFixed(2)}</Price>
+            <Size>N° {size} </Size>
+          </section>
           <Description>{description}</Description>
         </BoxTitle>
       </section>
@@ -80,15 +112,26 @@ const BoxTitle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  section {
+    justify-content: space-between;
+  }
 `;
 
 const Title = styled.p`
   font-size: 18px;
+  font-weight: 700;
   color: black;
 `;
 
 const Price = styled.p`
   font-size: 18px;
+  font-weight: 700;
+  color: blue;
+`;
+
+const Size = styled.p`
+  font-size: 10px;
   color: blue;
 `;
 
