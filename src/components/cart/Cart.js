@@ -5,13 +5,13 @@ import { useState, useEffect, useContext } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { FaTrash } from "react-icons/fa";
 import { BsFillCartFill } from "react-icons/bs";
+import { ThreeDots } from "react-loader-spinner";
 
 import Product from "./Product";
 import Footer from "./CartFooter";
 
 import UserContext from "../contexts/UserContext";
 import { getCartProducts, cleanCart } from "../../services/APIs";
-import axios from "axios";
 
 export default function Cart() {
   const navigate = useNavigate();
@@ -72,7 +72,21 @@ export default function Cart() {
   }
 
   if (cart === null) {
-    return <h1>Carregando...</h1>;
+    return (
+      <WrapperDots>
+        <li>
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="black"
+            ariaLabel="three-dots-loading"
+            wrapperStyle
+            wrapperClass
+          />
+        </li>
+      </WrapperDots>
+    );
   }
 
   return (
@@ -126,6 +140,13 @@ const Wrapper = styled.div`
 
   display: flex;
   flex-direction: column;
+  align-items: center;
+`;
+
+const WrapperDots = styled.ul`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
 `;
 
