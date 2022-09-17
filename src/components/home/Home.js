@@ -1,31 +1,11 @@
 import styled from "styled-components";
 import axios from "axios";
 import { GrAppsRounded, GrFormSearch } from "react-icons/gr";
-import { RiHomeSmileFill, RiHeartFill, RiDraftFill, RiShoppingCartFill, RiUserFill } from 'react-icons/ri';
-import { IoHeartOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import UserContext from "./contexts/UserContext";
-
-function Product(props) {
-  const navigate = useNavigate();
-  const { name, price, URL, id } = props;
-
-  function seeProduct() {
-    navigate(`/Product/${id}`);
-  }
-
-  return (
-    <Products onClick={seeProduct}>
-      <span>
-        <IoHeartOutline />
-      </span>
-      <img src={URL} alt="tenis" />
-      <p>{name}</p>
-      <h1>{price}</h1>
-    </Products>
-  );
-}
+import UserContext from "../contexts/UserContext";
+import HomeProduct from "./HomeProduct";
+import HomeFooter from "./HomeFooter";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -49,10 +29,6 @@ export default function Home() {
       });
   }, [user_Token, navigate]);
 
-  function goCart() {
-    navigate('/Cart');
-  }
-
   return (
     <Screen>
       <Navbar>
@@ -68,7 +44,7 @@ export default function Home() {
       </Textbar>
       <Listproducts>
         {server_Products.map(value => (
-          <Product
+          <HomeProduct
             name={value.name}
             price={value.price}
             URL={value.URLimage}
@@ -76,13 +52,7 @@ export default function Home() {
           />
         ))}
       </Listproducts>
-      <Footer>
-        <strong><RiHomeSmileFill /></strong>
-        <RiHeartFill />
-        <strong><RiShoppingCartFill onClick={goCart}/></strong>
-        <RiDraftFill />
-        <RiUserFill />
-      </Footer>
+      <HomeFooter/>
     </Screen>
   );
 }
@@ -133,50 +103,5 @@ const Listproducts = styled.div`
   flex-wrap: wrap;
   ::-webkit-scrollbar {
     display: none;
-  }
-`;
-
-const Products = styled.div`
-  background-color: #ffffff;
-  margin: 0 0 15px 0;
-  height: 200px;
-  width: 152px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'PT Sans', sans-serif;
-  img {
-    width: 100px;
-    height: 100px;
-  }
-  span {
-    padding: 10px;
-    width: 80%;
-    text-align: end;
-  }
-  p {
-    font-size: 15px;
-    color: #8b8da0;
-    margin: 10px 0 0 0;
-  }
-  h1 {
-    font-size: 20px;
-    color: #8383bc;
-    margin: 10px 0 0 0;
-  }
-`;
-
-const Footer = styled.div`
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5%;
-  font-size: 20px;
-  color: #B8B8C7;
-  background-color: #ffffff;
-  strong {
-      color: #3E44AA;
   }
 `;

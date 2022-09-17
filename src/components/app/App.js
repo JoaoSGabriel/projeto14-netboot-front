@@ -4,9 +4,9 @@ import UserContext from "../contexts/UserContext";
 import GlobalStyle from "./GlobalStyle";
 import SignIn from "../SignIn";
 import SignUp from "../SignUp";
-import Home from "../Home";
+import Home from "../home/Home";
 import Cart from "../cart/Cart";
-import ProductPage from "../ProductPage";
+import ProductPage from "../productPage/ProductPage";
 
 export default function App() {
   const [user_Token, setUser_Token] = useState("");
