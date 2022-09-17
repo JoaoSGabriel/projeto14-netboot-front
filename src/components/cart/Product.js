@@ -40,12 +40,12 @@ export default function Product({
   }
 
   function sub() {
-    if (increment !== 0) {
+    if (increment > 1) {
       setIncrement(increment - 1);
       setBalance(balance - price);
-    }
+    } else if (increment === 1) {
+      setBalance(balance - price);
 
-    if (increment <= 1) {
       removeCartProduct(id, config)
         .then((res) => {
           getCartProducts(config)

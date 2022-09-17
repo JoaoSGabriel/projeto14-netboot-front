@@ -19,15 +19,27 @@ export default function Cart() {
   const [cart, setCart] = useState(null);
   const { user_Token } = useContext(UserContext);
 
+  function defineBalance(cart, balance) {
+    if (cart !== null && cart.length !== 0 && balance === 0) {
+      let somatorio = 0;
+      cart.forEach((item) => (somatorio += Number(item.price)));
+      setBalance(somatorio);
+    }
+  }
+  function adjustSignOfBalance() {
+    if (Math.sign(balance) === -1) {
+      setBalance(balance * -1);
+    }
+  }
+
+  defineBalance(cart, balance);
+  adjustSignOfBalance();
+
   const config = {
     headers: {
-      Authorization: `Bearer ${"8aefebb4-de1f-43ec-92c9-e298be77defd"}`,
+      Authorization: `Bearer ${user_Token}`,
     },
   };
-
-  if (Math.sign(balance) === -1) {
-    setBalance(balance * -1);
-  }
 
   useEffect(() => {
     getCartProducts(config)
@@ -38,14 +50,6 @@ export default function Cart() {
         console.log(error);
       });
   }, []);
-
-  useEffect(() => {
-    let somatorio = 0;
-    if (cart !== null) {
-      cart.forEach((item) => (somatorio += Number(item.price)));
-      setBalance(somatorio);
-    }
-  }, [cart]);
 
   function backHome() {
     navigate("/Home");
@@ -98,7 +102,7 @@ export default function Cart() {
               price={item.price}
               brand={item.brand}
               description={item.description}
-              size={item.sizes}
+              size={item.size}
               URLimage={item.URLimage}
               balance={balance}
               setBalance={setBalance}
@@ -108,7 +112,7 @@ export default function Cart() {
         </BoxProducts>
       )}
 
-      <Footer balance={balance} />
+      <Footer balance={cart.length !== 0 ? balance : 0} />
     </Wrapper>
   );
 }
