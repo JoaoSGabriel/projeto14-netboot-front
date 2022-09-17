@@ -21,7 +21,7 @@ export default function Cart() {
 
   const config = {
     headers: {
-      Authorization: `Bearer ${user_Token}`,
+      Authorization: `Bearer ${"8aefebb4-de1f-43ec-92c9-e298be77defd"}`,
     },
   };
 
@@ -32,20 +32,20 @@ export default function Cart() {
   useEffect(() => {
     getCartProducts(config)
       .then((res) => {
-        setCart(res.data);
+        setCart([...res.data]);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
 
-  useEffect(() => {
-    let somatorio = 0;
-    if (cart !== null) {
-      cart.forEach((item) => (somatorio += Number(item.price)));
-      setBalance(somatorio);
-    }
-  }, []);
+  // useEffect(() => {
+  //   let somatorio = 0;
+  //   if (cart !== null) {
+  //     cart.forEach((item) => (somatorio += Number(item.price)));
+  //     setBalance(somatorio);
+  //   }
+  // }, [cart]);
 
   function backHome() {
     navigate("/Home");

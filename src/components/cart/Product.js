@@ -20,11 +20,15 @@ export default function Product({
   setCart,
 }) {
   const [increment, setIncrement] = useState(1);
+  if (increment === 0) {
+    setIncrement(increment + 1);
+  }
+
   const { user_Token } = useContext(UserContext);
 
   const config = {
     headers: {
-      Authorization: `Bearer ${user_Token}`,
+      Authorization: `Bearer ${"8aefebb4-de1f-43ec-92c9-e298be77defd"}`,
     },
   };
 
@@ -40,22 +44,22 @@ export default function Product({
       setIncrement(increment - 1);
       setBalance(balance - price);
     }
-  }
 
-  if (increment === 0) {
-    removeCartProduct(id, config)
-      .then(() => {
-        getCartProducts(config)
-          .then((res) => {
-            setCart(res.data);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    if (increment <= 1) {
+      removeCartProduct(id, config)
+        .then((res) => {
+          getCartProducts(config)
+            .then((res) => {
+              setCart([...res.data]);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    }
   }
 
   return (
