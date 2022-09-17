@@ -19,7 +19,7 @@ async function getCartProducts(config) {
 }
 
 async function cleanCart(config) {
-  const promise = await axios.delete(`http://localhost:5000/cart/all`, config);
+  const promise = await axios.delete(`http://localhost:5000/cleanCart`, config);
   return promise;
 }
 

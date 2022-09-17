@@ -39,29 +39,28 @@ export default function Cart() {
       });
   }, []);
 
-  // useEffect(() => {
-  //   let somatorio = 0;
-  //   if (cart !== null) {
-  //     cart.forEach((item) => (somatorio += Number(item.price)));
-  //     setBalance(somatorio);
-  //   }
-  // }, [cart]);
+  useEffect(() => {
+    let somatorio = 0;
+    if (cart !== null) {
+      cart.forEach((item) => (somatorio += Number(item.price)));
+      setBalance(somatorio);
+    }
+  }, [cart]);
 
   function backHome() {
     navigate("/Home");
   }
 
-  function cleanCart() {
-    alert("CLEAN CART");
+  function clean() {
     cleanCart(config)
       .then(() => {
-        // getCartProducts(config)
-        //   .then((res) => {
-        //     setCart(res.data);
-        //   })
-        //   .catch((error) => {
-        //     console.log(error.message);
-        //   });
+        getCartProducts(config)
+          .then((res) => {
+            setCart([...res.data]);
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
       })
       .catch((error) => {
         console.log(error.message);
@@ -83,7 +82,7 @@ export default function Cart() {
           <BsFillCartFill />
         </li>
         <li>
-          <FaTrash onClick={cleanCart} />
+          <FaTrash onClick={clean} />
         </li>
       </Header>
 
@@ -93,6 +92,7 @@ export default function Cart() {
         <BoxProducts>
           {cart.map((item) => (
             <Product
+              key={item._id}
               id={item._id}
               name={item.name}
               price={item.price}
