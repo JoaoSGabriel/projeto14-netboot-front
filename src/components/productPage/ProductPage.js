@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BiArrowBack } from 'react-icons/bi'
-import { AiOutlineHeart } from 'react-icons/ai'
+import { IoHeartOutline, IoHeartCircleSharp } from 'react-icons/io5'
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
@@ -11,10 +11,11 @@ import PorductDetails from "./ProductDetails";
 export default function ProductPage () {
     const navigate = useNavigate();
     const params = useParams();
-    const { user_Token } = useContext(UserContext);
+    const { user_Token, user_ID } = useContext(UserContext);
     
     const [server_Response, setServer_Response] = useState([]);
     const [productSize, setProductSize] = useState([]);
+    const [isFavorit, setIsFavorit] = useState(false);
 
     useEffect(() => {
         const promisse = axios.get(`http://localhost:5000/products/${params.id}`, {
@@ -26,8 +27,13 @@ export default function ProductPage () {
         promisse.then((res) => {
             setServer_Response(res.data);
             setProductSize(res.data.sizes);
+            res.data.favorite.forEach(value => {
+                if (value === user_ID) {
+                  setIsFavorit(true);
+                }
+              });
         }).catch();
-    }, [user_Token, navigate, params.id]);
+    }, [user_Token, user_ID, navigate, params.id]);
 
     function back () {
         navigate('/Home');
@@ -47,7 +53,9 @@ export default function ProductPage () {
             <Navbar>
                 <BiArrowBack onClick={back}/>
                 <p><strong>Net</strong>Boot</p>
-                <AiOutlineHeart onClick={turnFavorite}/>
+                {isFavorit ? (
+                <span><IoHeartCircleSharp style={{color: 'red'}}/></span>) : (
+                <span><IoHeartOutline onClick={turnFavorite}/></span>)}
             </Navbar>
             <Photo><img src={server_Response.URLimage} alt="product big"/></Photo>
             <PorductDetails name={server_Response.name} description={server_Response.description} productSize={productSize}/>
