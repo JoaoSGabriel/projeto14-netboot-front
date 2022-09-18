@@ -92,7 +92,7 @@ export default function ProductPage () {
 }
 
 const Screen = styled.div`
-    width: 375px;
+    width: 100vw;
     height: 667px;
     background-color: #FFFFFF;
 `;
