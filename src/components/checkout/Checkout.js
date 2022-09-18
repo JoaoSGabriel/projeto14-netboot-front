@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import UserContext from "../contexts/UserContext";
+import { getCartProducts, getUser, postCheckout } from "../../services/APIs";
 import Input from "./Input";
 
 import { IoArrowBackSharp } from "react-icons/io5";
@@ -10,7 +11,12 @@ import { ThreeDots } from "react-loader-spinner";
 
 export default function Checkout() {
   const navigate = useNavigate();
-
+  const { user_Token, user_ID } = useContext(UserContext);
+  const config = {
+    headers: {
+      Authorization: `Bearer ${user_Token}`,
+    },
+  };
   // ADRESS DATA
   const [country, setCountry] = useState("");
   const [numberPhone, setNumberPhone] = useState("");
@@ -45,18 +51,69 @@ export default function Checkout() {
       state,
     };
 
-    const BANK = {
+    const bankData = {
       numberCard,
       name,
       validate: `${month}/${year}`,
       cvv,
     };
+
+    getUser(user_ID, config)
+      .then((res) => {
+        const user = {
+          name: res.data.name,
+          email: res.data.email,
+        };
+
+        getCartProducts(config)
+          .then((res) => {
+            const cart = [...res.data];
+
+            const body = {
+              user,
+              cart,
+              adressData,
+              bankData,
+            };
+
+            postCheckout(body, config)
+              .then(() => {
+                navigate("/OUTRA ROTA AÍ");
+              })
+              .catch((error) => {
+                console.log(error.message);
+              });
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   function backHome() {
     navigate("/Home");
   }
 
+  if (!user_Token) {
+    return (
+      <WrapperDots>
+        <li>
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="black"
+            ariaLabel="three-dots-loading"
+            wrapperStyle
+            wrapperClass
+          />
+        </li>
+      </WrapperDots>
+    );
+  }
   return (
     <Wrapper>
       <Header>
@@ -219,4 +276,11 @@ const Button = styled.button`
   font-weight: 700;
 
   cursor: pointer;
+`;
+
+const WrapperDots = styled.ul`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

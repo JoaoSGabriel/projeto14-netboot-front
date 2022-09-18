@@ -23,4 +23,25 @@ async function cleanCart(config) {
   return promise;
 }
 
-export { removeCartProduct, addCartProduct, getCartProducts, cleanCart };
+async function postCheckout(body, config) {
+  const promise = await axios.post(
+    `http://localhost:5000/checkout`,
+    body,
+    config
+  );
+  return promise;
+}
+
+async function getUser(id, config) {
+  const promise = await axios.post(`http://localhost:5000/user/${id}`, config);
+  return promise;
+}
+
+export {
+  removeCartProduct,
+  addCartProduct,
+  getCartProducts,
+  cleanCart,
+  postCheckout,
+  getUser,
+};
