@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
@@ -7,7 +7,6 @@ import { removeCartProduct, getCartProducts } from "../../services/APIs";
 
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
-<<<<<<< HEAD
 export default function Product({
   id,
   name,
@@ -20,20 +19,6 @@ export default function Product({
   setBalance,
   setCart,
 }) {
-=======
-export default function Product(props) {
-  const {
-    id,
-    name,
-    price,
-    brand,
-    description,
-    size,
-    URLimage,
-    balance,
-    setBalance,
-  } = props;
->>>>>>> main
   const [increment, setIncrement] = useState(1);
   if (increment === 0) {
     setIncrement(increment + 1);
@@ -43,7 +28,7 @@ export default function Product(props) {
 
   const config = {
     headers: {
-      Authorization: `Bearer ${"8aefebb4-de1f-43ec-92c9-e298be77defd"}`,
+      Authorization: `Bearer ${user_Token}`,
     },
   };
 
