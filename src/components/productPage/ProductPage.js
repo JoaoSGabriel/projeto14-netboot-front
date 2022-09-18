@@ -31,7 +31,8 @@ export default function ProductPage () {
             res.data.favorite.forEach(value => {
                 if (value === user_ID) {
                   setIsFavorit(true);
-                } else {
+                }
+                if (value !== user_ID && res.data.favorite.length === 0) {
                   setIsFavorit(false);
                 }
               });
