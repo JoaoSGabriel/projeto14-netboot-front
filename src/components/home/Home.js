@@ -59,7 +59,7 @@ export default function Home() {
 }
 
 const Screen = styled.div`
-  width: 375px;
+  width: 100vw;
   height: 667px;
   background-color: #f7f7f7;
 `;

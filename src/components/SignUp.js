@@ -63,13 +63,13 @@ export default function SignUp() {
 }
 
 const Screen = styled.div`
-    width: 375px;
+    width: 100vw;
     height: 667px;
     background-color: #560BAD;
 `;
 
 const Title =  styled.div`
-    font-family: '';
+    font-family: 'PT Sans', sans-serif;
     font-weight: 400;
     font-size: 32px;
     line-height: 50.37px;
@@ -91,7 +91,7 @@ const PageForm = styled.div`
         border-radius: 5px;
         border: none;
         background-color: #B5179E;
-        font-family: '';
+        font-family: 'PT Sans', sans-serif;
         font-weight: 700;
         font-size: 20px;
         line-height: 23.48px;
@@ -105,7 +105,7 @@ const Input = styled.input`
     margin: 0 0 13px 0;
     border: 1px solid #D4D4D4;
     border-radius: 5px;
-    font-family: '';
+    font-family: 'PT Sans', sans-serif;
     font-weight: 400;
     font-size: 20px;
     line-height: 23.48px;
@@ -117,7 +117,7 @@ const Input = styled.input`
 
 const Text = styled.div`
     margin: 36px 0 0 0;
-    font-family: '';
+    font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-size: 15px;
     line-height: 17.61px;

@@ -28,14 +28,18 @@ export default function ProductPage () {
         promisse.then((res) => {
             setServer_Response(res.data);
             setProductSize(res.data.sizes);
-            res.data.favorite.forEach(value => {
-                if (value === user_ID) {
-                  setIsFavorit(true);
-                }
-                if (value !== user_ID && res.data.favorite.length === 0) {
-                  setIsFavorit(false);
-                }
-              });
+            if (res.data.favorite.length === 0) {
+                setIsFavorit(false);
+            } else {
+                res.data.favorite.forEach(value => {
+                    if (value === user_ID) {
+                      setIsFavorit(true);
+                    }
+                    if (value !== user_ID) {
+                      setIsFavorit(false);
+                    }
+                });
+            }
         }).catch();
     }, [user_Token, user_ID, navigate, params.id, reload]);
 
@@ -88,7 +92,7 @@ export default function ProductPage () {
 }
 
 const Screen = styled.div`
-    width: 375px;
+    width: 100vw;
     height: 667px;
     background-color: #FFFFFF;
 `;
