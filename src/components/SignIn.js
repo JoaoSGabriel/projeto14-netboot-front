@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./contexts/UserContext";
+import { signIn } from "../services/APIs";
 
 
 export default function SignIn() {
@@ -22,9 +22,7 @@ export default function SignIn() {
             password: account_Password
         }
 
-        const promisse = axios.post("http://localhost:5000/sign-in", data_Login);
-
-        promisse.then((res) => {
+        signIn(data_Login).then((res) => {
             setAccount_Email('');
             setAccount_Password('');
             setUser_Token(res.data.token);

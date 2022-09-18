@@ -4,9 +4,9 @@ import { IoHeartOutline, IoHeartCircleSharp } from 'react-icons/io5'
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
-import axios from "axios";
 import ProductFooter from "./ProductFooter";
 import PorductDetails from "./ProductDetails";
+import { addFavoriteProduct, getOneProducts, removeFavoriteProduct } from "../../services/APIs";
 
 export default function ProductPage () {
     const navigate = useNavigate();
@@ -19,13 +19,13 @@ export default function ProductPage () {
     const [reload, setReload] = useState(true);
 
     useEffect(() => {
-        const promisse = axios.get(`http://localhost:5000/products/${params.id}`, {
+        const config = {
             headers: {
-                Authorization: `Bearer ${user_Token}`
+              Authorization: `Bearer ${user_Token}`,
             }
-        });
-
-        promisse.then((res) => {
+        };
+        
+        getOneProducts(params.id, config).then((res) => {
             setServer_Response(res.data);
             setProductSize(res.data.sizes);
             if (res.data.favorite.length === 0) {
@@ -48,14 +48,15 @@ export default function ProductPage () {
     }
     
     function turnFavorite () {
-        const promisse = axios.put(`http://localhost:5000/products/favorite/${server_Response._id}`, {}, {
-          headers: {
-            Authorization: `Bearer ${user_Token}`
-          }
-        });
-        promisse.then(() => {
-            setReload(!reload);
-        }).catch();
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user_Token}`,
+            }
+        };
+
+        addFavoriteProduct(server_Response._id, config)
+          .then(() => {setReload(!reload)})
+          .catch();
     }
 
     function dismissFavorit () {
@@ -65,14 +66,16 @@ export default function ProductPage () {
             }
         }
 
-        const promisse = axios.put(`http://localhost:5000/produtcs/remove/favorite/${server_Response._id}`, {favorite: server_Response.favorite}, {
-          headers: {
-            Authorization: `Bearer ${user_Token}`
-          }
-        });
-        promisse.then(() => {
-            setReload(!reload);
-        }).catch();
+        const body = {favorite: server_Response.favorite};
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user_Token}`,
+            }
+        };
+
+        removeFavoriteProduct(server_Response._id, body, config)
+          .then(() => {setReload(!reload)})
+          .catch();
     }
 
     return(
