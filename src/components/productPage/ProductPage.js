@@ -78,7 +78,7 @@ export default function ProductPage () {
           .catch();
     }
 
-    const [chooseSize, setChooseSize] = useState(40)
+    const [chooseSize, setChooseSize] = useState(40);
 
     return(
         <Screen>
