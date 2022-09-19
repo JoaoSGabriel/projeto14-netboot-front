@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GrAppsRounded, GrFormSearch } from "react-icons/gr";
+import { GrFormSearch } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
@@ -30,7 +30,6 @@ export default function Home() {
   return (
     <Screen>
       <Navbar>
-        <GrAppsRounded />
         <p>
           <strong>Net</strong>Boot
         </p>
@@ -38,7 +37,6 @@ export default function Home() {
       </Navbar>
       <Textbar>
         <p>Nossos produtos</p>
-        <h1>sort by</h1>
       </Textbar>
       <Listproducts>
         {server_Products.map(value => (
