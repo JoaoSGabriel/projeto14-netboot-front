@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import axios from "axios";
 import { GrAppsRounded, GrFormSearch } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import HomeProduct from "./HomeProduct";
 import HomeFooter from "./HomeFooter";
+import { getProducts } from "../../services/APIs";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -14,17 +14,15 @@ export default function Home() {
   const [server_Products, setServer_Products] = useState([]);
 
   useEffect(() => {
-    const promisse = axios.get("http://localhost:5000/products", {
+    const config = {
       headers: {
         Authorization: `Bearer ${user_Token}`,
-      },
-    });
-
-    promisse
-      .then((res) => {
+      }
+    };
+    
+    getProducts(config).then((res) => {
         setServer_Products(res.data);
-      })
-      .catch(() => {
+      }).catch(() => {
         navigate("/");
       });
   }, [user_Token, navigate]);

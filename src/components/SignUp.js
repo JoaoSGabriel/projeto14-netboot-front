@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
+import { signUp } from "../services/APIs";
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -27,9 +27,7 @@ export default function SignUp() {
             password: create_password
         }
     
-        const promisse = axios.post("http://localhost:5000/sign-up", data_Create);
-    
-        promisse.then(() => {
+        signUp(data_Create).then(() => {
             setCreate_name('');
             setCreate_email('');
             setCreate_password('');
