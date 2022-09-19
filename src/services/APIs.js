@@ -33,7 +33,7 @@ async function postCheckout(body, config) {
 }
 
 async function getUser(id, config) {
-  const promise = await axios.post(`http://localhost:5000/user/${id}`, config);
+  const promise = await axios.get(`http://localhost:5000/user/${id}`, config);
   return promise;
 }
 
