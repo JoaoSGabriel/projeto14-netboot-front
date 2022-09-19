@@ -4,9 +4,9 @@ import { IoHeartOutline, IoHeartCircleSharp } from 'react-icons/io5'
 import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
-import axios from "axios";
 import ProductFooter from "./ProductFooter";
 import PorductDetails from "./ProductDetails";
+import { addFavoriteProduct, getOneProducts, removeFavoriteProduct } from "../../services/APIs";
 
 export default function ProductPage () {
     const navigate = useNavigate();
@@ -19,22 +19,27 @@ export default function ProductPage () {
     const [reload, setReload] = useState(true);
 
     useEffect(() => {
-        const promisse = axios.get(`http://localhost:5000/products/${params.id}`, {
+        const config = {
             headers: {
-                Authorization: `Bearer ${user_Token}`
+              Authorization: `Bearer ${user_Token}`,
             }
-        });
-
-        promisse.then((res) => {
+        };
+        
+        getOneProducts(params.id, config).then((res) => {
             setServer_Response(res.data);
             setProductSize(res.data.sizes);
-            res.data.favorite.forEach(value => {
-                if (value === user_ID) {
-                  setIsFavorit(true);
-                } else {
-                  setIsFavorit(false);
-                }
-              });
+            if (res.data.favorite.length === 0) {
+                setIsFavorit(false);
+            } else {
+                res.data.favorite.forEach(value => {
+                    if (value === user_ID) {
+                      setIsFavorit(true);
+                    }
+                    if (value !== user_ID) {
+                      setIsFavorit(false);
+                    }
+                });
+            }
         }).catch();
     }, [user_Token, user_ID, navigate, params.id, reload]);
 
@@ -43,14 +48,15 @@ export default function ProductPage () {
     }
     
     function turnFavorite () {
-        const promisse = axios.put(`http://localhost:5000/products/favorite/${server_Response._id}`, {}, {
-          headers: {
-            Authorization: `Bearer ${user_Token}`
-          }
-        });
-        promisse.then(() => {
-            setReload(!reload);
-        }).catch();
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user_Token}`,
+            }
+        };
+
+        addFavoriteProduct(server_Response._id, config)
+          .then(() => {setReload(!reload)})
+          .catch();
     }
 
     function dismissFavorit () {
@@ -60,15 +66,19 @@ export default function ProductPage () {
             }
         }
 
-        const promisse = axios.put(`http://localhost:5000/produtcs/remove/favorite/${server_Response._id}`, {favorite: server_Response.favorite}, {
-          headers: {
-            Authorization: `Bearer ${user_Token}`
-          }
-        });
-        promisse.then(() => {
-            setReload(!reload);
-        }).catch();
+        const body = {favorite: server_Response.favorite};
+        const config = {
+            headers: {
+              Authorization: `Bearer ${user_Token}`,
+            }
+        };
+
+        removeFavoriteProduct(server_Response._id, body, config)
+          .then(() => {setReload(!reload)})
+          .catch();
     }
+
+    const [chooseSize, setChooseSize] = useState(40);
 
     return(
         <Screen>
@@ -80,14 +90,14 @@ export default function ProductPage () {
                 <span><IoHeartOutline onClick={turnFavorite}/></span>)}
             </Navbar>
             <Photo><img src={server_Response.URLimage} alt="product big"/></Photo>
-            <PorductDetails name={server_Response.name} description={server_Response.description} productSize={productSize}/>
-            <ProductFooter id={server_Response._id} price={server_Response.price}/>
+            <PorductDetails name={server_Response.name} description={server_Response.description} productSize={productSize} setChooseSize={setChooseSize}/>
+            <ProductFooter server_Response={server_Response} price={server_Response.price} chooseSize={chooseSize}/>
         </Screen>
     );
 }
 
 const Screen = styled.div`
-    width: 375px;
+    width: 100vw;
     height: 667px;
     background-color: #FFFFFF;
 `;

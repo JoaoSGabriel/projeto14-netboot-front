@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import axios from "axios";
-import { GrAppsRounded, GrFormSearch } from "react-icons/gr";
+import { GrFormSearch } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import HomeProduct from "./HomeProduct";
 import HomeFooter from "./HomeFooter";
+import { getProducts } from "../../services/APIs";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -14,17 +14,15 @@ export default function Home() {
   const [server_Products, setServer_Products] = useState([]);
 
   useEffect(() => {
-    const promisse = axios.get("http://localhost:5000/products", {
+    const config = {
       headers: {
         Authorization: `Bearer ${user_Token}`,
-      },
-    });
-
-    promisse
-      .then((res) => {
+      }
+    };
+    
+    getProducts(config).then((res) => {
         setServer_Products(res.data);
-      })
-      .catch(() => {
+      }).catch(() => {
         navigate("/");
       });
   }, [user_Token, navigate]);
@@ -32,7 +30,6 @@ export default function Home() {
   return (
     <Screen>
       <Navbar>
-        <GrAppsRounded />
         <p>
           <strong>Net</strong>Boot
         </p>
@@ -40,7 +37,6 @@ export default function Home() {
       </Navbar>
       <Textbar>
         <p>Nossos produtos</p>
-        <h1>sort by</h1>
       </Textbar>
       <Listproducts>
         {server_Products.map((value) => (
@@ -59,7 +55,7 @@ export default function Home() {
 }
 
 const Screen = styled.div`
-  width: 375px;
+  width: 100vw;
   height: 667px;
   background-color: #f7f7f7;
 `;

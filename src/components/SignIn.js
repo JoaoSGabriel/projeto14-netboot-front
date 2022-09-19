@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import UserContext from "./contexts/UserContext";
+import { signIn } from "../services/APIs";
 
 
 export default function SignIn() {
@@ -22,9 +22,7 @@ export default function SignIn() {
             password: account_Password
         }
 
-        const promisse = axios.post("http://localhost:5000/sign-in", data_Login);
-
-        promisse.then((res) => {
+        signIn(data_Login).then((res) => {
             setAccount_Email('');
             setAccount_Password('');
             setUser_Token(res.data.token);
@@ -53,13 +51,13 @@ export default function SignIn() {
 }
 
 const Screen = styled.div`
-    width: 375px;
+    width: 100vw;
     height: 667px;
     background-color: #560BAD;
 `;
 
 const Title =  styled.div`
-    font-family: '';
+    font-family: 'PT Sans', sans-serif;
     font-weight: 400;
     font-size: 32px;
     line-height: 50.37px;
@@ -70,6 +68,7 @@ const Title =  styled.div`
 
 const PageForm = styled.div`
     width: 100%;
+    font-family: 'PT Sans', sans-serif;
     form {
         display: flex;
         flex-direction: column;
@@ -81,7 +80,7 @@ const PageForm = styled.div`
         border-radius: 5px;
         border: none;
         background-color: #B5179E;
-        font-family: '';
+        font-family: 'PT Sans', sans-serif;
         font-weight: 700;
         font-size: 20px;
         line-height: 23.48px;
@@ -95,7 +94,7 @@ const Input = styled.input`
     margin: 0 0 13px 0;
     border: 1px solid #D4D4D4;
     border-radius: 5px;
-    font-family: '';
+    font-family: 'PT Sans', sans-serif;
     font-weight: 400;
     font-size: 20px;
     line-height: 23.48px;
@@ -107,7 +106,7 @@ const Input = styled.input`
 
 const Text = styled.div`
     margin: 36px 0 0 0;
-    font-family: '';
+    font-family: 'PT Sans', sans-serif;
     font-weight: 700;
     font-size: 15px;
     line-height: 17.61px;

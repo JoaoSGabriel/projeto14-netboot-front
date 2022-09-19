@@ -30,7 +30,7 @@ export default function HomeProduct (props) {
             <span><IoHeartOutline/></span>)}
             <img src={URL} alt="tenis" />
             <p>{name}</p>
-            <h1>{price}</h1>
+            <h1>R$ {price.replace('.', ',')}</h1>
         </Products>
     );
 }

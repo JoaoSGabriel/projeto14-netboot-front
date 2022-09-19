@@ -7,15 +7,31 @@ export default function HomeFooter () {
 
     function goCart() {
         navigate('/Cart');
-      }
+    }
+
+    function goHome() {
+        navigate('/Home');
+    }
+
+    function goFavorits() {
+        navigate('/Home/Favoritos');
+    }
+
+    function goDraft () {
+        navigate('/Draft');
+    }
+
+    function goProfile() {
+        navigate('/Profile');
+    }
 
     return(
         <Footer>
-            <strong><RiHomeSmileFill /></strong>
-            <RiHeartFill />
-            <strong><RiShoppingCartFill onClick={goCart}/></strong>
-            <RiDraftFill />
-            <RiUserFill />
+            <strong><RiHomeSmileFill onClick={goHome}/></strong>
+            <RiHeartFill onClick={goFavorits}/>
+            <RiShoppingCartFill onClick={goCart}/>
+            <RiDraftFill onClick={goDraft}/>
+            <RiUserFill onClick={goProfile}/>
         </Footer>
     );
 }

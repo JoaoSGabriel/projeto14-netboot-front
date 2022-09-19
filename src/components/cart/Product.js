@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
@@ -91,7 +91,7 @@ export default function Product({
         <BoxTitle>
           <Title>{name}</Title>
           <section>
-            <Price>R$ {price.toFixed(2)}</Price>
+            <Price>R$ {price}</Price>
             <Size>N° {size} </Size>
           </section>
           <Description>{description}</Description>
