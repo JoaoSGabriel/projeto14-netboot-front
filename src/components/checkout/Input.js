@@ -45,8 +45,6 @@ export default function Input({
             <option value="31">31</option>
             <option value="32">32</option>
             <option value="33">33</option>
-            <option value="34">34</option>
-            <option value="35">35</option>
           </select>
         </section>
       </Date>

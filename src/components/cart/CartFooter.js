@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { useNavigate, Link } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CartFooter({ balance }) {
   const navigate = useNavigate();
@@ -10,7 +9,7 @@ export default function CartFooter({ balance }) {
   }
   return (
     <Wrapper>
-      <p>$ {balance.toFixed(2)}</p>
+      <p>$ {balance}</p>
       <button onClick={buy}>Finalizar compra</button>
     </Wrapper>
   );

@@ -82,10 +82,10 @@ export default function EndLine() {
         </Adress>
         <Bank>
           <h2>Dados bancários</h2>
-          <li>Cartão: {checkout.bankData.numberCard}</li>
+          <li>Cartão: ************{checkout.bankData.numberCard.slice(12, 16)}</li>
           <li>Nome: {checkout.bankData.name}</li>
           <li>Validade: {checkout.bankData.date}</li>
-          <li>Cvv: {checkout.bankData.cvv}</li>
+          <li>Cvv: {checkout.bankData.cvv[0]}**</li>
         </Bank>
 
         <Products>

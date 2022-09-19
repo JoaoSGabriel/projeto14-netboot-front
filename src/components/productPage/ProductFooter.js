@@ -27,12 +27,12 @@ export default function ProductFooter(props) {
             description: server_Response.description,
             size: chooseSize,
             URLimage: server_Response.URLimage,
-            qt: '1'
+            qt: 1
         }
 
         addCartProduct(product, config)
           .then(() => {
-            navigate('/Cart');
+            navigate('/Home');
           }).catch();
     }
 

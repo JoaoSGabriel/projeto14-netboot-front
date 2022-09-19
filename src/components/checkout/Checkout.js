@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import UserContext from "../contexts/UserContext";
@@ -224,7 +224,7 @@ const Title = styled.h1`
 `;
 
 const Main = styled.form`
-  padding: 100px 0px;
+  padding: 100px 0 400px 0;
 
   display: flex;
   flex-direction: column;

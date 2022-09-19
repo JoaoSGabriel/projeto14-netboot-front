@@ -39,34 +39,27 @@ export default function Product({
   function add() {
     if (increment >= 1) {
       setIncrement(increment + 1);
-      setBalance(balance + price);
+      setBalance(Number(balance) + Number(price));
       const bodyEmpty = {};
       updateQt("add", id, bodyEmpty, config)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((error) => {
-          console.log("CATCH");
-          console.log(error);
-        });
+        .then()
+        .catch();
     }
   }
 
   function sub() {
     if (increment > 1) {
       setIncrement(increment - 1);
-      setBalance(balance - price);
+      setBalance(Number(balance) + Number(price));
 
       const bodyEmpty = {};
       updateQt("sub", id, bodyEmpty, config)
-        .then((res) => {
-          console.log(res);
-        })
+        .then()
         .catch((error) => {
           console.log(error);
         });
     } else if (increment === 1) {
-      setBalance(balance - price);
+      setBalance(Number(balance) + Number(price));
 
       removeCartProduct(id, config)
         .then((res) => {
