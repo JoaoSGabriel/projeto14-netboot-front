@@ -3,7 +3,11 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import UserContext from "../contexts/UserContext";
 
-import { removeCartProduct, getCartProducts } from "../../services/APIs";
+import {
+  removeCartProduct,
+  getCartProducts,
+  updateQt,
+} from "../../services/APIs";
 
 import { AiFillMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
@@ -24,18 +28,27 @@ export default function Product({
     setIncrement(increment + 1);
   }
 
-  const { user_Token } = useContext(UserContext);
+  const { user_Token, user_ID } = useContext(UserContext);
 
   const config = {
     headers: {
-      Authorization: `Bearer ${user_Token}`,
+      Authorization: `Bearer 06d135bd-cbd4-468e-81af-2119ac698e64`,
     },
   };
 
   function add() {
-    if (increment >= 0) {
+    if (increment >= 1) {
       setIncrement(increment + 1);
       setBalance(balance + price);
+
+      updateQt("add", id, config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log("CATCH");
+          console.log(error);
+        });
     }
   }
 
@@ -43,12 +56,20 @@ export default function Product({
     if (increment > 1) {
       setIncrement(increment - 1);
       setBalance(balance - price);
+
+      updateQt("sub", id, config)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else if (increment === 1) {
       setBalance(balance - price);
 
       removeCartProduct(id, config)
         .then((res) => {
-          getCartProducts(config)
+          getCartProducts(user_ID, config)
             .then((res) => {
               setCart([...res.data]);
             })

@@ -67,8 +67,10 @@ export default function Checkout() {
 
         getCartProducts(config)
           .then((res) => {
-            const cart = [...res.data];
-
+            const cart = {
+              products: [...res.data],
+              // balance:
+            };
             const body = {
               user,
               cart,

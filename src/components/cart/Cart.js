@@ -17,7 +17,7 @@ export default function Cart() {
   const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
   const [cart, setCart] = useState(null);
-  const { user_Token } = useContext(UserContext);
+  const { user_Token, user_ID } = useContext(UserContext);
 
   function defineBalance(cart, balance) {
     if (cart !== null && cart.length !== 0 && balance === 0) {
@@ -41,8 +41,10 @@ export default function Cart() {
     },
   };
 
+  const id = "63238f143a42bdf67bf6dafa";
+
   useEffect(() => {
-    getCartProducts(config)
+    getCartProducts(id, config)
       .then((res) => {
         setCart([...res.data]);
       })
@@ -108,9 +110,9 @@ export default function Cart() {
         <DataEmpty>O carrinho está vazio...</DataEmpty>
       ) : (
         <BoxProducts>
-          {cart.map((item) => (
+          {cart.map((item, index) => (
             <Product
-              key={item._id}
+              key={index}
               id={item._id}
               name={item.name}
               price={item.price}
@@ -155,7 +157,7 @@ const Header = styled.ul`
   justify-content: space-between;
   align-items: center;
 
-  height: 15%;
+  height: 90px;
   padding: 15px;
   background-color: #3a0ca3;
   position: fixed;

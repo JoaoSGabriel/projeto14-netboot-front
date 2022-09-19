@@ -2,22 +2,23 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function CartFooter({ balance }) {
+export default function CartFooter({ balance, arrIncrements }) {
   const navigate = useNavigate();
 
   function buy() {
-    navigate("/Checkout");
+    console.log(arrIncrements);
+    // navigate("/Checkout");
   }
   return (
     <Wrapper>
       <p>$ {balance.toFixed(2)}</p>
-      <button onClick={buy}>Comprar</button>
+      <button onClick={buy}>Finalizar compra</button>
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  height: 15%;
+  height: 90px;
   background-color: #3a0ca3;
   position: fixed;
   left: 0;
@@ -34,8 +35,8 @@ const Wrapper = styled.div`
   }
   button {
     cursor: pointer;
-    width: 70px;
-    height: 30px;
+    width: 130px;
+    height: 40px;
     background-color: #4cc9f0;
     border-radius: 10px;
     box-shadow: 0px 0px 2px 2px black;
