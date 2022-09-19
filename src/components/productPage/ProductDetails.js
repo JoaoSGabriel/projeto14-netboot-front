@@ -2,23 +2,32 @@ import { useState } from "react";
 import styled from "styled-components";
 
 function SizeModel (props) {
-    const { scale } = props;
+    const { scale, setChooseSize } = props;
 
     const [isChoose, setIsChoose] = useState(false);
+
+    function selectSize () {
+        setIsChoose(true)
+        setChooseSize(scale);
+    }
+
+    function diselectSize () {
+        setIsChoose(false)
+    }
 
     return(
         <>
         {isChoose ? (
-            <ChooseWrappler onClick={() => setIsChoose(false)}>{scale}</ChooseWrappler>
+            <ChooseWrappler onClick={diselectSize}>{scale}</ChooseWrappler>
         ) : (
-            <Wrappler onClick={() => setIsChoose(true)}>{scale}</Wrappler>
+            <Wrappler onClick={selectSize}>{scale}</Wrappler>
         )}
         </>
     );
 }
 
 export default function PorductDetails (props) {
-    const { name, description, productSize } = props;
+    const { name, description, productSize, setChooseSize } = props;
 
     return(
         <Details>
@@ -26,7 +35,7 @@ export default function PorductDetails (props) {
             <h1>{description}</h1>
             <Size>
                 <span>Tamanhos:</span>
-                {productSize.map(value => <SizeModel scale={value}/>)}
+                {productSize.map(value => <SizeModel scale={value} setChooseSize={setChooseSize}/>)}
             </Size>
             <Colors>
                 <span>Cores Disponíveis:</span>

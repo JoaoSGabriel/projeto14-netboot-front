@@ -69,7 +69,7 @@ export default function Product({
         <BoxTitle>
           <Title>{name}</Title>
           <section>
-            <Price>R$ {price.toFixed(2)}</Price>
+            <Price>R$ {price}</Price>
             <Size>N° {size} </Size>
           </section>
           <Description>{description}</Description>

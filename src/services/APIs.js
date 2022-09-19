@@ -40,8 +40,8 @@ export async function removeCartProduct(id, config) {
   return promise;
 }
 
-export async function addCartProduct(config) {
-  const promise = await axios.post(`${BASE_URL}/cart`, config);
+export async function addCartProduct(body, config) {
+  const promise = await axios.post(`${BASE_URL}/cart`, body, config);
   return promise;
 }
 
