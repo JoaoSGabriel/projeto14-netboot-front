@@ -11,18 +11,13 @@ import { ThreeDots } from "react-loader-spinner";
 
 export default function Checkout() {
   const navigate = useNavigate();
-  // const { user_Token, user_ID } = useContext(UserContext);
-  const user_ID = "63238f143a42bdf67bf6dafa";
-  // const config = {
-  //   headers: {
-  //     Authorization: `Bearer ${user_Token}`,
-  //   },
-  // };
+  const { user_Token, user_ID } = useContext(UserContext);
   const config = {
     headers: {
-      Authorization: `Bearer ${"41cf9218-7c58-48d8-b4aa-2bc21bd276bc"}`,
+      Authorization: `Bearer ${user_Token}`,
     },
   };
+
   // ADRESS DATA
   const [country, setCountry] = useState("");
   const [numberPhone, setNumberPhone] = useState("");
@@ -102,23 +97,23 @@ export default function Checkout() {
     navigate("/Home");
   }
 
-  // if (!user_Token) {
-  //   return (
-  //     <WrapperDots>
-  //       <li>
-  //         <ThreeDots
-  //           height="80"
-  //           width="80"
-  //           radius="9"
-  //           color="black"
-  //           ariaLabel="three-dots-loading"
-  //           wrapperStyle
-  //           wrapperClass
-  //         />
-  //       </li>
-  //     </WrapperDots>
-  //   );
-  // }
+  if (!user_Token) {
+    return (
+      <WrapperDots>
+        <li>
+          <ThreeDots
+            height="80"
+            width="80"
+            radius="9"
+            color="black"
+            ariaLabel="three-dots-loading"
+            wrapperStyle
+            wrapperClass
+          />
+        </li>
+      </WrapperDots>
+    );
+  }
   return (
     <Wrapper>
       <Header>

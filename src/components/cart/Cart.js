@@ -17,11 +17,10 @@ export default function Cart() {
   const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
   const [cart, setCart] = useState(null);
-  // const { user_Token, user_ID } = useContext(UserContext);
-  const user_ID = "63238f143a42bdf67bf6dafa";
+  const { user_Token, user_ID } = useContext(UserContext);
   const config = {
     headers: {
-      Authorization: `Bearer ${"41cf9218-7c58-48d8-b4aa-2bc21bd276bc"}`,
+      Authorization: `Bearer ${user_Token}`,
     },
   };
 
@@ -156,7 +155,6 @@ const Header = styled.ul`
 
   height: 90px;
   padding: 15px;
-  /* background-color: #3a0ca3; */
   background-color: white;
   position: fixed;
   left: 0;

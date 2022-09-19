@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { IoArrowBackSharp } from "react-icons/io5";
 
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext";
 
 import ProductCheckout from "./ProductCheckout.js";
 
@@ -12,11 +14,11 @@ export default function EndLine() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [checkout, setCheckout] = useState(null);
-  // const { user_Token, user_ID } = useContext(UserContext);
+  const { user_Token } = useContext(UserContext);
 
   const config = {
     headers: {
-      Authorization: `Bearer ${"41cf9218-7c58-48d8-b4aa-2bc21bd276bc"}`,
+      Authorization: `Bearer ${user_Token}`,
     },
   };
 
@@ -85,21 +87,6 @@ export default function EndLine() {
           <li>Validade: {checkout.bankData.date}</li>
           <li>Cvv: {checkout.bankData.cvv}</li>
         </Bank>
-        {/* <Products>
-            <h2>Produtos</h2>
-            {checkout.cart.map((product) => {
-              <li>
-                {" "}
-                <ProductCheckout
-                  name={product.name}
-                  price={product.price}
-                  size={product.size}
-                  brand={product.brand}
-                  qt={product.qt}
-                ></ProductCheckout>{" "}
-              </li>;
-            })}
-          </Products> */}
 
         <Products>
           <h2>Produtos</h2>
