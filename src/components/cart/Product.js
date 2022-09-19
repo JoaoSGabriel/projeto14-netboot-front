@@ -28,12 +28,11 @@ export default function Product({
     setIncrement(increment + 1);
   }
 
-  // const { user_Token, user_ID } = useContext(UserContext);
-  const user_ID = "63238f143a42bdf67bf6dafa";
+  const { user_Token, user_ID } = useContext(UserContext);
 
   const config = {
     headers: {
-      Authorization: `Bearer 06d135bd-cbd4-468e-81af-2119ac698e64`,
+      Authorization: `Bearer ${user_Token}`,
     },
   };
 
