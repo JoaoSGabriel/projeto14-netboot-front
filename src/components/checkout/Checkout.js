@@ -11,10 +11,16 @@ import { ThreeDots } from "react-loader-spinner";
 
 export default function Checkout() {
   const navigate = useNavigate();
-  const { user_Token, user_ID } = useContext(UserContext);
+  // const { user_Token, user_ID } = useContext(UserContext);
+  const user_ID = "63238f143a42bdf67bf6dafa";
+  // const config = {
+  //   headers: {
+  //     Authorization: `Bearer ${user_Token}`,
+  //   },
+  // };
   const config = {
     headers: {
-      Authorization: `Bearer ${user_Token}`,
+      Authorization: `Bearer ${"41cf9218-7c58-48d8-b4aa-2bc21bd276bc"}`,
     },
   };
   // ADRESS DATA
@@ -37,7 +43,6 @@ export default function Checkout() {
 
   function done(e) {
     e.preventDefault();
-    alert("Done!");
 
     const adressData = {
       country,
@@ -54,7 +59,7 @@ export default function Checkout() {
     const bankData = {
       numberCard,
       name,
-      validate: `${month}/${year}`,
+      date: `${month}/${year}`,
       cvv,
     };
 
@@ -65,12 +70,10 @@ export default function Checkout() {
           email: res.data.email,
         };
 
-        getCartProducts(config)
+        getCartProducts(user_ID, config)
           .then((res) => {
-            const cart = {
-              products: [...res.data],
-              // balance:
-            };
+            const cart = res.data;
+
             const body = {
               user,
               cart,
@@ -79,8 +82,8 @@ export default function Checkout() {
             };
 
             postCheckout(body, config)
-              .then(() => {
-                navigate("/OUTRA ROTA AÍ");
+              .then((res) => {
+                navigate(`/EndLine/${res.data._id}`);
               })
               .catch((error) => {
                 console.log(error.message);
@@ -99,23 +102,23 @@ export default function Checkout() {
     navigate("/Home");
   }
 
-  if (!user_Token) {
-    return (
-      <WrapperDots>
-        <li>
-          <ThreeDots
-            height="80"
-            width="80"
-            radius="9"
-            color="black"
-            ariaLabel="three-dots-loading"
-            wrapperStyle
-            wrapperClass
-          />
-        </li>
-      </WrapperDots>
-    );
-  }
+  // if (!user_Token) {
+  //   return (
+  //     <WrapperDots>
+  //       <li>
+  //         <ThreeDots
+  //           height="80"
+  //           width="80"
+  //           radius="9"
+  //           color="black"
+  //           ariaLabel="three-dots-loading"
+  //           wrapperStyle
+  //           wrapperClass
+  //         />
+  //       </li>
+  //     </WrapperDots>
+  //   );
+  // }
   return (
     <Wrapper>
       <Header>

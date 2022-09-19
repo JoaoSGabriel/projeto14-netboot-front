@@ -28,7 +28,8 @@ export default function Product({
     setIncrement(increment + 1);
   }
 
-  const { user_Token, user_ID } = useContext(UserContext);
+  // const { user_Token, user_ID } = useContext(UserContext);
+  const user_ID = "63238f143a42bdf67bf6dafa";
 
   const config = {
     headers: {
@@ -40,8 +41,8 @@ export default function Product({
     if (increment >= 1) {
       setIncrement(increment + 1);
       setBalance(balance + price);
-
-      updateQt("add", id, config)
+      const bodyEmpty = {};
+      updateQt("add", id, bodyEmpty, config)
         .then((res) => {
           console.log(res);
         })
@@ -57,7 +58,8 @@ export default function Product({
       setIncrement(increment - 1);
       setBalance(balance - price);
 
-      updateQt("sub", id, config)
+      const bodyEmpty = {};
+      updateQt("sub", id, bodyEmpty, config)
         .then((res) => {
           console.log(res);
         })

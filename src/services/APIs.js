@@ -18,8 +18,11 @@ async function getCartProducts(id, config) {
   return promise;
 }
 
-async function cleanCart(config) {
-  const promise = await axios.delete(`http://localhost:5000/cleanCart`, config);
+async function cleanCart(id, config) {
+  const promise = await axios.delete(
+    `http://localhost:5000/cleanCart/${id}`,
+    config
+  );
   return promise;
 }
 
@@ -32,14 +35,23 @@ async function postCheckout(body, config) {
   return promise;
 }
 
+async function getCheckout(id, config) {
+  const promise = await axios.get(
+    `http://localhost:5000/checkout/${id}`,
+    config
+  );
+  return promise;
+}
+
 async function getUser(id, config) {
   const promise = await axios.get(`http://localhost:5000/user/${id}`, config);
   return promise;
 }
 
-async function updateQt(action, id, config) {
+async function updateQt(action, id, body, config) {
   const promise = await axios.put(
     `http://localhost:5000/cart/${id}/action?${action}=1`,
+    body,
     config
   );
   return promise;
@@ -51,6 +63,7 @@ export {
   getCartProducts,
   cleanCart,
   postCheckout,
+  getCheckout,
   getUser,
   updateQt,
 };

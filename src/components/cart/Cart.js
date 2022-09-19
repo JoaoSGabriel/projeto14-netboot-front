@@ -19,6 +19,11 @@ export default function Cart() {
   const [cart, setCart] = useState(null);
   // const { user_Token, user_ID } = useContext(UserContext);
   const user_ID = "63238f143a42bdf67bf6dafa";
+  const config = {
+    headers: {
+      Authorization: `Bearer ${"41cf9218-7c58-48d8-b4aa-2bc21bd276bc"}`,
+    },
+  };
 
   function defineBalance(cart, balance) {
     if (cart !== null && cart.length !== 0 && balance === 0) {
@@ -36,14 +41,6 @@ export default function Cart() {
   defineBalance(cart, balance);
   adjustSignOfBalance();
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${"41cf9218-7c58-48d8-b4aa-2bc21bd276bc"}`,
-    },
-  };
-
-  // const id = "63238f143a42bdf67bf6dafa";
-
   useEffect(() => {
     getCartProducts(user_ID, config)
       .then((res) => {
@@ -59,7 +56,7 @@ export default function Cart() {
   }
 
   function clean() {
-    cleanCart(config)
+    cleanCart(user_ID, config)
       .then(() => {
         getCartProducts(user_ID, config)
           .then((res) => {
@@ -185,6 +182,7 @@ const Header = styled.ul`
     transform: translateY(2.9px);
     color: #4cc9f0;
     color: black;
+    cursor: pointer;
   }
 `;
 

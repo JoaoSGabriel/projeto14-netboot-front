@@ -6,7 +6,7 @@ export default function CartFooter({ balance }) {
   const navigate = useNavigate();
 
   function buy() {
-    // navigate("/Checkout");
+    navigate("/Checkout");
   }
   return (
     <Wrapper>
