@@ -1,24 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function SizeModel (props) {
-    const { scale, setChooseSize } = props;
-
+    const { scale, setChooseSize, chooseSize } = props;
     const [isChoose, setIsChoose] = useState(false);
 
-    function selectSize () {
-        setIsChoose(true)
-        setChooseSize(scale);
-    }
+    useEffect(() => {
+        if (scale === chooseSize){
+            setIsChoose(true);
+        } else {
+            setIsChoose(false);
+        }
+    }, [chooseSize]);
 
-    function diselectSize () {
-        setIsChoose(false)
+    function selectSize () {
+        setChooseSize(scale);
     }
 
     return(
         <>
         {isChoose ? (
-            <ChooseWrappler onClick={diselectSize}>{scale}</ChooseWrappler>
+            <ChooseWrappler>{scale}</ChooseWrappler>
         ) : (
             <Wrappler onClick={selectSize}>{scale}</Wrappler>
         )}
@@ -27,7 +29,7 @@ function SizeModel (props) {
 }
 
 export default function PorductDetails (props) {
-    const { name, description, productSize, setChooseSize } = props;
+    const { name, description, productSize, chooseSize, setChooseSize } = props;
 
     return(
         <Details>
@@ -35,7 +37,7 @@ export default function PorductDetails (props) {
             <h1>{description}</h1>
             <Size>
                 <span>Tamanhos:</span>
-                {productSize.map(value => <SizeModel scale={value} setChooseSize={setChooseSize}/>)}
+                {productSize.map((value, index) => <SizeModel key={index} scale={value} setChooseSize={setChooseSize} chooseSize={chooseSize}/>)}
             </Size>
             <Colors>
                 <span>Cores Disponíveis:</span>

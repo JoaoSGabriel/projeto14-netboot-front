@@ -90,7 +90,7 @@ export default function ProductPage () {
                 <span><IoHeartOutline onClick={turnFavorite}/></span>)}
             </Navbar>
             <Photo><img src={server_Response.URLimage} alt="product big"/></Photo>
-            <PorductDetails name={server_Response.name} description={server_Response.description} productSize={productSize} setChooseSize={setChooseSize}/>
+            <PorductDetails name={server_Response.name} description={server_Response.description} productSize={productSize} chooseSize={chooseSize} setChooseSize={setChooseSize}/>
             <ProductFooter server_Response={server_Response} price={server_Response.price} chooseSize={chooseSize}/>
         </Screen>
     );
