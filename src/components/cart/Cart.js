@@ -41,10 +41,10 @@ export default function Cart() {
     },
   };
 
-  const id = "63238f143a42bdf67bf6dafa";
+  // const id = "63238f143a42bdf67bf6dafa";
 
   useEffect(() => {
-    getCartProducts(id, config)
+    getCartProducts(user_ID, config)
       .then((res) => {
         setCart([...res.data]);
       })
@@ -60,7 +60,7 @@ export default function Cart() {
   function clean() {
     cleanCart(config)
       .then(() => {
-        getCartProducts(config)
+        getCartProducts(user_ID, config)
           .then((res) => {
             setCart([...res.data]);
           })

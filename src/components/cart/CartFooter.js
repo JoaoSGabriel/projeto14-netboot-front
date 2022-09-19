@@ -2,11 +2,10 @@ import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
 
-export default function CartFooter({ balance, arrIncrements }) {
+export default function CartFooter({ balance }) {
   const navigate = useNavigate();
 
   function buy() {
-    console.log(arrIncrements);
     // navigate("/Checkout");
   }
   return (
