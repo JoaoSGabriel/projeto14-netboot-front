@@ -18,7 +18,8 @@ export default function CartFooter({ balance }) {
 
 const Wrapper = styled.div`
   height: 90px;
-  background-color: #3a0ca3;
+  /* background-color: #3a0ca3; */
+  background-color: white;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -30,14 +31,18 @@ const Wrapper = styled.div`
 
   p {
     font-weight: 700;
-    color: #4cc9f0;
+    /* color: #4cc9f0; */
+    color: black;
   }
   button {
     cursor: pointer;
     width: 130px;
     height: 40px;
-    background-color: #4cc9f0;
+    /* background-color: #4cc9f0; */
+    background-color: black;
+    color: white;
+    font-weight: 700;
     border-radius: 10px;
-    box-shadow: 0px 0px 2px 2px black;
+    box-shadow: 0px 0px 1px 1px black;
   }
 `;

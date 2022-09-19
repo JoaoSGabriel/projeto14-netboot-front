@@ -17,7 +17,8 @@ export default function Cart() {
   const navigate = useNavigate();
   const [balance, setBalance] = useState(0);
   const [cart, setCart] = useState(null);
-  const { user_Token, user_ID } = useContext(UserContext);
+  // const { user_Token, user_ID } = useContext(UserContext);
+  const user_ID = "63238f143a42bdf67bf6dafa";
 
   function defineBalance(cart, balance) {
     if (cart !== null && cart.length !== 0 && balance === 0) {
@@ -37,7 +38,7 @@ export default function Cart() {
 
   const config = {
     headers: {
-      Authorization: `Bearer ${user_Token}`,
+      Authorization: `Bearer ${"41cf9218-7c58-48d8-b4aa-2bc21bd276bc"}`,
     },
   };
 
@@ -136,7 +137,6 @@ export default function Cart() {
 const Wrapper = styled.div`
   height: 100vh;
   width: 375px;
-  background-color: #e5e5e5;
 
   font-size: 20px;
 
@@ -159,7 +159,8 @@ const Header = styled.ul`
 
   height: 90px;
   padding: 15px;
-  background-color: #3a0ca3;
+  /* background-color: #3a0ca3; */
+  background-color: white;
   position: fixed;
   left: 0;
   top: 0;
@@ -169,24 +170,29 @@ const Header = styled.ul`
     font-size: 23px;
     transform: translateY(1.8px);
     color: #4cc9f0;
+    color: black;
   }
   li:nth-child(2) {
     display: flex;
     align-items: center;
     gap: 15px;
     color: #4cc9f0;
+    color: black;
   }
 
   li:nth-child(3) {
     font-size: 18px;
     transform: translateY(2.9px);
     color: #4cc9f0;
+    color: black;
   }
 `;
 
 const Title = styled.h2`
   font-size: 30px;
   color: #4cc9f0;
+  color: black;
+
   font-weight: 700;
   font-family: "Anton";
 `;
