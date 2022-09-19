@@ -48,10 +48,10 @@ export default function SignUp() {
             <Title>NetBoot</Title>
             <PageForm>
                 <form onSubmit={createAccount}>
-                    <Input type="text" placeholder="   Nome" onChange={e => setCreate_name(e.target.value)} value={create_name} required readyOnly={able}></Input>
-                    <Input type="email" placeholder="   E-mail" onChange={e => setCreate_email(e.target.value)} value={create_email} required readyOnly={able}></Input>
-                    <Input type="password" placeholder="   Senha" onChange={e => setCreate_password(e.target.value)} value={create_password} required readyOnly={able}></Input>
-                    <Input type="password" placeholder="   Confirme a senha" onChange={e => setCreate_repeatPassword(e.target.value)} value={create_repeatPassword} required readyOnly={able}></Input>
+                    <Input type="text" placeholder="Nome" onChange={e => setCreate_name(e.target.value)} value={create_name} required readyOnly={able}></Input>
+                    <Input type="email" placeholder="E-mail" onChange={e => setCreate_email(e.target.value)} value={create_email} required readyOnly={able}></Input>
+                    <Input type="password" placeholder="Senha" onChange={e => setCreate_password(e.target.value)} value={create_password} required readyOnly={able}></Input>
+                    <Input type="password" placeholder="Confirme a senha" onChange={e => setCreate_repeatPassword(e.target.value)} value={create_repeatPassword} required readyOnly={able}></Input>
                     <button type="submit">Entrar</button>
                 </form>
             </PageForm>
@@ -101,6 +101,7 @@ const Input = styled.input`
     width: 85%;
     height: 45px;
     margin: 0 0 13px 0;
+    padding: 0 0 0 20px;
     border: 1px solid #D4D4D4;
     border-radius: 5px;
     font-family: 'PT Sans', sans-serif;

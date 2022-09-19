@@ -40,8 +40,8 @@ export default function SignIn() {
             <Title>NetBoot</Title>
             <PageForm>
                 <form onSubmit={login}>
-                    <Input type="email" placeholder="   E-mail" onChange={e => setAccount_Email(e.target.value)} value={account_Email} required readOnly={able}></Input>
-                    <Input type="password" placeholder="   Senha" onChange={e => setAccount_Password(e.target.value)} value={account_Password} required readOnly={able}></Input>
+                    <Input type="email" placeholder="E-mail" onChange={e => setAccount_Email(e.target.value)} value={account_Email} required readOnly={able}></Input>
+                    <Input type="password" placeholder="Senha" onChange={e => setAccount_Password(e.target.value)} value={account_Password} required readOnly={able}></Input>
                     <button type="submit">Entrar</button>
                 </form>
             </PageForm>
@@ -92,6 +92,7 @@ const Input = styled.input`
     width: 85%;
     height: 45px;
     margin: 0 0 13px 0;
+    padding: 0 0 0 20px;
     border: 1px solid #D4D4D4;
     border-radius: 5px;
     font-family: 'PT Sans', sans-serif;
