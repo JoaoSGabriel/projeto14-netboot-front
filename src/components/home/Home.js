@@ -39,7 +39,7 @@ export default function Home() {
         <p>Nossos produtos</p>
       </Textbar>
       <Listproducts>
-        {server_Products.map(value => (
+        {server_Products.map((value) => (
           <HomeProduct
             name={value.name}
             price={value.price}
@@ -49,7 +49,7 @@ export default function Home() {
           />
         ))}
       </Listproducts>
-      <HomeFooter/>
+      <HomeFooter />
     </Screen>
   );
 }
@@ -66,7 +66,7 @@ const Navbar = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 25px;
-  font-family: 'PT Sans', sans-serif;
+  font-family: "PT Sans", sans-serif;
   p {
     color: #4cc9f0;
   }
