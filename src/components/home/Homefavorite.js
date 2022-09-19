@@ -21,8 +21,17 @@ export default function HomeFavorite () {
         };
         
         getProducts(config).then((res) => {
-            const products = res.data.filter(value => value.favorite[0] === user_ID)
-            setServer_Products(products);
+          const products = []
+
+          for(let i = 0; i < res.data.length; i++) {
+            for (let y = 0; y < res.data[i].favorite.length; y++) {
+              if (res.data[i].favorite[y] === user_ID) {
+                products.push(res.data[i]);
+              }
+            }
+          }  
+          
+          setServer_Products(products);
           }).catch();
     }, [user_Token, navigate, user_ID]);
 
